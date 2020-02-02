@@ -15,8 +15,7 @@ namespace Plant_Life.Models
         public string PlantName { get; set; }
         public string PlantCare { get; set; }
         public int Quantity { get; set; }
-        public string Image { get; set; }
-        public bool IsDefault { get; set; }
+        public string? Image { get; set; }
 
     }
 }

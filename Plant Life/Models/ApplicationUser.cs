@@ -18,8 +18,5 @@ namespace Plant_Life.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        public string Email { get; set; }
-
     }
 }
