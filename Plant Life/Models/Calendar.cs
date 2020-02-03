@@ -12,7 +12,7 @@ namespace Plant_Life.Models
         public int Id { get; set; }
         public int PlantId { get; set; }
         public int UserPlantId { get; set; }
-        public int UserId { get; set; }
+      
 
         public DateTime StartDate { get; set; }
 
