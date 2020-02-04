@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +14,7 @@ using Plant_Life.Models;
 
 namespace Plant_Life.Controllers
 {
- [Authorize]
+    [Authorize]
     public class PlantsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -54,7 +56,6 @@ namespace Plant_Life.Controllers
         // GET: Plants/Create
         public IActionResult Create()
         {
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
             return View();
         }
 
@@ -63,10 +64,22 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PlantName,PlantCare,Quantity,Image")] Plant plant)
+        public async Task<IActionResult> Create([Bind("Id,PlantName,PlantCare,Quantity,Image,File")] Plant plant, IFormFile file)
         {
             var user = await GetCurrentUserAsync();
             plant.ApplicationUserId = user.Id;
+
+
+            if (plant.File != null && plant.File.Length > 0)
+            {
+                var fileName = Path.GetFileName(plant.File.FileName); //getting path of actual file name
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images", fileName); //creating path combining file name w/ www.root\\images directory
+                using (var fileSteam = new FileStream(filePath, FileMode.Create)) //using filestream to get the actual path 
+                {
+                    await plant.File.CopyToAsync(fileSteam);
+                }
+                plant.Image = fileName;
+            }
 
             if (ModelState.IsValid)
             {
@@ -74,7 +87,6 @@ namespace Plant_Life.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           
             return View(plant);
         }
 
@@ -91,7 +103,8 @@ namespace Plant_Life.Controllers
             {
                 return NotFound();
             }
-           
+
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", plant.ApplicationUserId);
             return View(plant);
         }
 
@@ -100,8 +113,9 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Id,PlantName,PlantCare,Quantity,Image")] Plant plant)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Id,PlantName,PlantCare,Quantity,Image,File")] Plant plant, IFormFile file)
         {
+
             if (id != plant.Id)
             {
                 return NotFound();
@@ -111,6 +125,16 @@ namespace Plant_Life.Controllers
             {
                 try
                 {
+                    if (plant.File != null && plant.File.Length > 0)
+                    {
+                        var fileName = Path.GetFileName(plant.File.FileName); //getting path of actual file name
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images", fileName); //creating path combining file name w/ www.root\\images directory
+                        using (var fileSteam = new FileStream(filePath, FileMode.Create)) //using filestream to get the actual path 
+                        {
+                            await plant.File.CopyToAsync(fileSteam);
+                        }
+                        plant.Image = fileName;
+                    }
                     _context.Update(plant);
                     await _context.SaveChangesAsync();
                 }
@@ -131,6 +155,7 @@ namespace Plant_Life.Controllers
             return View(plant);
         }
 
+
         // GET: Plants/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -146,7 +171,7 @@ namespace Plant_Life.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", plant.ApplicationUserId);
             return View(plant);
         }
 
