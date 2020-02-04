@@ -27,6 +27,7 @@ namespace Plant_Life.Controllers
         // GET: DefaultPlants
         public async Task<IActionResult> Index()
         {
+            var user = await GetCurrentUserAsync();
             return View(await _context.DefaultPlant.ToListAsync());
         }
 

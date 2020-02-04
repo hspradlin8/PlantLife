@@ -8,9 +8,7 @@ namespace Plant_Life.Models
 {
     public class DefaultPlant
     {
-       
-        
-        public int Id { get; set; }
+       public int Id { get; set; }
         [Required]
         [Display(Name = "Plant Name")]
         public string PlantName {get; set;}
