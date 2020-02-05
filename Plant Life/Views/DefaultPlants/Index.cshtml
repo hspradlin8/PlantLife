@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Select">Select a Plant</a>
+    @*<a asp-action="Select">Select a Plant</a>*@
 </p>
 <table class="table">
     <thead>
@@ -27,45 +27,35 @@
             <th>
                 @Html.DisplayNameFor(model => model.Issues)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlantName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sunlight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Temperature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Water)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Issues)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-               
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sunlight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temperature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Water)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Issues)
+                </td>
+                <td>
+                    <form asp-action="AddDefaultPlant">
+                        <input type="hidden" name="id" value="@item.Id"/>
+                        <input type="submit" class="btn btn-success" id="btn-@item.Id" value="Add Plant to Index"/>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -62,6 +63,7 @@ namespace Plant_Life.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PlantName,PlantCare,Quantity,Image")] DefaultPlant defaultPlant)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(defaultPlant);
@@ -69,6 +71,27 @@ namespace Plant_Life.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(defaultPlant);
+        }
+
+        // POST: AddDefaultPlants
+       // [Route("{id}")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDefaultPlant(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var defaultPlantUser = new DefaultPlantUser
+            {
+                ApplicationUserId = user.Id,
+                DefaultPlantId = id,
+                Image = null
+
+            };
+
+            _context.Add(defaultPlantUser);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: DefaultPlants/Edit/5
