@@ -30,7 +30,13 @@ namespace Plant_Life.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Plant.Where(a => a.ApplicationUserId == user.Id);
+            var applicationDbContext = _context.Plant
+                .Where(a => a.ApplicationUserId == user.Id);
+
+            //var DefaultPlantUserViewModels = new DefaultPlantUserViewModels
+            //{
+
+            //};
             return View(await applicationDbContext.ToListAsync());
         }
 
