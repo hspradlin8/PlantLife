@@ -108,7 +108,25 @@ namespace Plant_Life.Controllers
                 return NotFound();
             }
 
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", plant.ApplicationUserId);
+            return View(plant);
+        }
+
+        // GET: EditUserDefault/Edit/5
+        public async Task<IActionResult> EditUserDefault(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plant = await _context.DefaultPlant
+                
+                .FirstOrDefaultAsync(dp => dp.Id == id);
+            if (plant == null)
+            {
+                return NotFound();
+            }
+
             return View(plant);
         }
 
@@ -155,8 +173,72 @@ namespace Plant_Life.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", plant.ApplicationUserId);
             return View(plant);
+        }
+
+
+        // POST: Plants.EditUserDefault/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //Step 1. delete correct defaultplantuser record
+        //Step 2. save a new record in the plant table
+        public async Task<IActionResult> EditUserDefault(int id, [Bind("Id,PlantName,Sunlight,Temperate,Image,Quantity")] DefaultPlant defaultPlant)
+        {
+
+            if (id != defaultPlant.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var currentUser = await GetCurrentUserAsync();
+
+                    var deleteDefaultPlantUser = await _context.DefaultPlantUser
+                         .Include(dp => dp.DefaultPlant)
+                         .FirstOrDefaultAsync(dp => dp.DefaultPlantId == id && dp.ApplicationUserId == currentUser.Id);
+
+                    if (deleteDefaultPlantUser == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var plant = new Plant
+                    {
+                        ApplicationUserId = currentUser.Id,
+                        PlantName = defaultPlant.PlantName,
+                        Sunlight= defaultPlant.Sunlight,
+                        Temperature = defaultPlant.Temperature,
+                        Water = defaultPlant.Water,
+                        Issues = defaultPlant.Issues,
+                        Quantity = defaultPlant.Quantity,
+                        Image = defaultPlant.Image
+                    };
+
+                    _context.Add(plant);
+                    _context.Remove(deleteDefaultPlantUser);
+                   // await _context.SaveChangesAsync();
+
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PlantExists(defaultPlant.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return View(defaultPlant);
         }
 
 
@@ -169,23 +251,52 @@ namespace Plant_Life.Controllers
             }
 
             var plant = await _context.Plant
-                .Include(p => p.ApplicationUser)
+                //.Include(p => p.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (plant == null)
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", plant.ApplicationUserId);
+            return View(plant);
+        }
+
+        // GET: DefaultPlants/Delete/5
+        public async Task<IActionResult> DeleteDefaultPlant(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var plant = await _context.DefaultPlantUser
+                .Include(p => p.ApplicationUser).Include(dp => dp.DefaultPlant)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (plant == null)
+            {
+                return NotFound();
+            }
             return View(plant);
         }
 
         // POST: Plants/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var plant = await _context.Plant.FindAsync(id);
             _context.Plant.Remove(plant);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        // POST: DefaultPlants/Delete/5
+        [HttpPost, ActionName("DeleteDefaultPlantConfirmed")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteDefaultPlantConfirmed(int id)
+        {
+            var plant = await _context.DefaultPlantUser.FindAsync(id);
+            _context.DefaultPlantUser.Remove(plant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

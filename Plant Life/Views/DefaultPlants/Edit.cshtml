@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <a asp-controller="Plants" asp-action="Index"></a>
+                <a asp-controller="DefaultPlants" asp-action="Index"></a>
                 <input name="file" type="file" class="form-control" value="Image" />
                 <img src="@("/Images/" + Model.Image)" alt="Plant Pic" style="max-width:150px" />
             </div>

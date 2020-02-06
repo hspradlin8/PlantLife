@@ -74,7 +74,7 @@ namespace Plant_Life.Controllers
         }
 
         // POST: AddDefaultPlants
-       // [Route("{id}")]
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddDefaultPlant(int id)

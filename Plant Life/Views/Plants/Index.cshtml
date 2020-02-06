@@ -93,12 +93,13 @@
                     @Html.DisplayFor(modelItem => item.DefaultPlant.Quantity)
                 </td>
                 <td>
-                 <a asp-controller="DefaultPlants" asp-action="Edit"asp-route-id="@item.Id">Add An Image</a> 
-                    <img src="@("/Images/" + item.Image)" style="max-width: 150px" />
+                    <a asp-controller="Plants" asp-action="Edit" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>
+                </td>
+                @*<img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                    <a asp-controller="DefaultPlants"asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Edit</a> |
+                    <a asp-controller="Plants" asp-action="DeleteDefaultPlant" asp-route-id="@item.Id">Delete</a>
+
                 </td>
             </tr>
         }
