@@ -91,7 +91,7 @@ namespace Plant_Life.Controllers
             _context.Add(defaultPlantUser);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Plants");
         }
 
         // GET: DefaultPlants/Edit/5

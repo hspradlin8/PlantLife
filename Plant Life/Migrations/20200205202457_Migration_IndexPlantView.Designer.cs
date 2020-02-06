@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Plant_Life.Data;
 
 namespace Plant_Life.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200205202457_Migration_IndexPlantView")]
+    partial class Migration_IndexPlantView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,6 +277,7 @@ namespace Plant_Life.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Sunlight")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Temperature")
@@ -647,6 +650,7 @@ namespace Plant_Life.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Sunlight")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Temperature")
@@ -718,13 +722,13 @@ namespace Plant_Life.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2c766527-964c-4713-bda4-c2871b0cbdd2",
+                            ConcurrencyStamp = "cdff27fd-d60c-404a-b172-17fdc53d6818",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG4UxAfQh3N0u8VVYPQadDbuMkRBee0splIHWN+peAf3G7dJZoMjC/sdR+KdF8omhw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGPNXbEhQu/oxb8YOr12czFFNRuBRN3u4Yr1yNgS8RY8I7yKY8unA6Yh0pRWjiF0jw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
