@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Plant_Life.Models;
+using Plant_Life.Models.ViewModel;
 
 namespace Plant_Life.Data
 {
@@ -408,5 +409,8 @@ namespace Plant_Life.Data
             };
             modelBuilder.Entity<DefaultPlant>().HasData(defaultplant30);
         }
+
+
+        public DbSet<Plant_Life.Models.ViewModel.PlantIndexViewModel> PlantIndexViewModel { get; set; }
     }
 }

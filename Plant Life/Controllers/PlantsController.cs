@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Plant_Life.Data;
 using Plant_Life.Models;
+using Plant_Life.Models.ViewModel;
 
 namespace Plant_Life.Controllers
 {
@@ -29,9 +30,12 @@ namespace Plant_Life.Controllers
         // GET: Plants
         public async Task<IActionResult> Index()
         {
+            var plantIndexViewModel = new PlantIndexViewModel();
             var user = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Plant.Where(a => a.ApplicationUserId == user.Id);
-            return View(await applicationDbContext.ToListAsync());
+            plantIndexViewModel.Plants = _context.Plant.Where(a => a.ApplicationUserId == user.Id).ToList();
+            plantIndexViewModel.DefaultPlantUsers = _context.DefaultPlantUser
+                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.DefaultPlant).ToList();
+            return View(plantIndexViewModel);
         }
 
         // GET: Plants/Details/5

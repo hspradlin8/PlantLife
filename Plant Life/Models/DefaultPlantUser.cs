@@ -13,5 +13,6 @@ namespace Plant_Life.Models
      
         public int DefaultPlantId { get; set; }
         public string Image { get; set; }
+        public DefaultPlant DefaultPlant { get; set; }
     }
 }

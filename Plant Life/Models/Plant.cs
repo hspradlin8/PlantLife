@@ -17,9 +17,10 @@ namespace Plant_Life.Models
         [Required]
         [Display(Name = "Plant Name")]
         public string PlantName { get; set; }
-        [Required]
-        [Display(Name = "Plant Care")]
-        public string PlantCare { get; set; }
+        public string Sunlight { get; set; }
+        public string Temperature { get; set; }
+        public string Water { get; set; }
+        public string Issues { get; set; }
         public int Quantity { get; set; }
         public string? Image { get; set; }
         [NotMapped]
