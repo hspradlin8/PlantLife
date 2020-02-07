@@ -94,7 +94,7 @@
         </td>
         <td>
             <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>
-            <img src="@("/Images/" + item.Image)" style="max-width: 150px" />
+            @*<img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
         </td>
         <td>
             <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Edit</a> |
