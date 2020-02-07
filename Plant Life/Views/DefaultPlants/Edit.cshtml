@@ -14,21 +14,46 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
+                <label asp-for="PlantName" class="control-label"></label>
+                <input asp-for="PlantName" class="form-control" />
+                <span asp-validation-for="PlantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sunlight" class="control-label"></label>
+                <input asp-for="Sunlight" class="form-control" />
+                <span asp-validation-for="Sunlight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Temperature" class="control-label"></label>
+                <input asp-for="Temperature" class="form-control" />
+                <span asp-validation-for="Temperature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Water" class="control-label"></label>
+                <input asp-for="Water" class="form-control" />
+                <span asp-validation-for="Water" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issues" class="control-label"></label>
+                <input asp-for="Issues" class="form-control" />
+                <span asp-validation-for="Issues" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <a asp-controller="Plants" asp-action="Index"></a>
+                <a asp-controller="DefaultPlants" asp-action="Index"></a>
                 <input name="file" type="file" class="form-control" value="Image" />
                 <img src="@("/Images/" + Model.Image)" alt="Plant Pic" style="max-width:150px" />
             </div>
             @*<div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input name="file" type="file" class="form-control" value="Image" />
-                <img src="@("/Images/" + Model.Image)" alt="Plant Pic" style="max-width:150px" />
-            </div>*@
+            <label asp-for="Image" class="control-label"></label>
+            <input name="file" type="file" class="form-control" value="Image" />
+            <img src="@("/Images/" + Model.Image)" alt="Plant Pic" style="max-width:150px" />
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
