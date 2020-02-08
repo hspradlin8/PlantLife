@@ -196,18 +196,6 @@ namespace Plant_Life.Controllers
             {
                 try
                 {
-                    //if (defaultPlant.File != null && defaultPlant.File.Length > 0)
-                    //{
-                    //    var fileName = Path.GetFileName(defaultPlant.File.FileName); //getting path of actual file name
-                    //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images", fileName); //creating path combining file name w/ www.root\\images directory
-                    //    using (var fileSteam = new FileStream(filePath, FileMode.Create)) //using filestream to get the actual path 
-                    //    {
-                    //        await defaultPlant.File.CopyToAsync(fileSteam);
-                    //    }
-                    //    defaultPlant.Image = fileName;
-                    //}
-                    
-
                     var currentUser = await GetCurrentUserAsync();
                     var deleteDefaultPlantUser = await _context.DefaultPlantUser
                          .Include(dp => dp.DefaultPlant)
@@ -232,7 +220,6 @@ namespace Plant_Life.Controllers
 
                     _context.Add(plant);
                     _context.Remove(deleteDefaultPlantUser);
-                   // await _context.SaveChangesAsync();
 
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -262,7 +249,6 @@ namespace Plant_Life.Controllers
             }
 
             var plant = await _context.Plant
-                //.Include(p => p.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (plant == null)
             {
