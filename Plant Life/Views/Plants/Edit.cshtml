@@ -35,6 +35,19 @@
                 <span asp-validation-for="Water" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="WaterNeeds" class="control-label"></label>
+                <input asp-for="WaterNeeds" class="form-control" />
+                <span asp-validation-for="WaterNeeds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <select id="DescriptionId" asp-for="Description">
+                    <option value="Times A Week">Times a week</option>
+                    <option value="Times A Month">Times a month</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Issues" class="control-label"></label>
                 <input asp-for="Issues" class="form-control" />
                 <span asp-validation-for="Issues" class="text-danger"></span>
@@ -47,9 +60,9 @@
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <a asp-controller="Plants" asp-action="Index"></a>
-                <input asp-for="Image" type="hidden"/>
+                <input asp-for="Image" type="hidden" />
                 <input name="file" type="file" class="form-control" value="Image" />
-               
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

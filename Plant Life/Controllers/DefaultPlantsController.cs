@@ -61,7 +61,7 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PlantName,Sunlight,Temperature,Water,Issues,Quantity,Image")] DefaultPlant defaultPlant)
+        public async Task<IActionResult> Create([Bind("Id,PlantName,Sunlight,Temperature,Water,WaterNeeds,Description,Issues,Quantity,Image")] DefaultPlant defaultPlant)
         {
 
             if (ModelState.IsValid)
@@ -115,7 +115,7 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PlantName,Sunlight,Temperature,Water,Issues,Quantity,Image")] DefaultPlant defaultPlant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PlantName,Sunlight,Temperature,Water,WaterNeeds,Description,Issues,Quantity,Image")] DefaultPlant defaultPlant)
         {
             if (id != defaultPlant.Id)
             {

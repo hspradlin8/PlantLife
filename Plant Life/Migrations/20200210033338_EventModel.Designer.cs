@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Plant_Life.Data;
 
 namespace Plant_Life.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200210033338_EventModel")]
+    partial class EventModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,9 +263,6 @@ namespace Plant_Life.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -286,9 +285,6 @@ namespace Plant_Life.Migrations
                     b.Property<string>("Water")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WaterNeeds")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("DefaultPlant");
@@ -302,8 +298,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Bright, indirect sunlight or artifical sunlight.",
                             Temperature = "55-80 degrees F.",
-                            Water = "Once every 3-4 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 3-4 weeks."
                         },
                         new
                         {
@@ -313,8 +308,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Partial sun or shade.",
                             Temperature = "65-80 degrees F.",
-                            Water = "Once every 3-4 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 3-4 weeks."
                         },
                         new
                         {
@@ -324,8 +318,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun for at least 4 hours each day.",
                             Temperature = "65-70 degrees F.",
-                            Water = "Once every 2-3 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-3 weeks."
                         },
                         new
                         {
@@ -335,8 +328,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Bright light to full sun.",
                             Temperature = "65-70 degrees F.",
-                            Water = "Once every 2-3 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-3 weeks."
                         },
                         new
                         {
@@ -346,8 +338,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun for at least 4 hours each day.",
                             Temperature = "65-75 degrees F.",
-                            Water = "Once every 4 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 4 weeks."
                         },
                         new
                         {
@@ -357,8 +348,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Bright light to full sun.",
                             Temperature = "60-75 degrees F.",
-                            Water = "Once every 10 days.",
-                            WaterNeeds = 0
+                            Water = "Once every 10 days."
                         },
                         new
                         {
@@ -368,8 +358,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Partial shade to full sun.",
                             Temperature = "60-80 degrees F.",
-                            Water = "Once every 1-2 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 1-2 weeks."
                         },
                         new
                         {
@@ -379,8 +368,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Direct sunlight.",
                             Temperature = "50-75 degrees F.",
-                            Water = "Once every 2-3 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-3 weeks."
                         },
                         new
                         {
@@ -390,8 +378,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "low light, full light and indirect sunlight.",
                             Temperature = "70-90 degrees F.",
-                            Water = "Once every 2-6 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-6 weeks."
                         },
                         new
                         {
@@ -401,8 +388,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sunlight.",
                             Temperature = "65-75 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -412,8 +398,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sunlight.",
                             Temperature = "-35-40 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -423,8 +408,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun or lightly filtered shade.",
                             Temperature = "10-70 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -434,8 +418,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Direct sunlight in the morning/afternoonand partial shade during the hottest part of the day.",
                             Temperature = "45-85 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -445,8 +428,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full to partial sun.",
                             Temperature = "35-50 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -456,8 +438,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun and partial sun in afternoons.",
                             Temperature = "18-50 degrees F.",
-                            Water = "Once a month.",
-                            WaterNeeds = 0
+                            Water = "Once a month."
                         },
                         new
                         {
@@ -467,8 +448,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun to partial shade.",
                             Temperature = "18-22 degrees F.",
-                            Water = "1-2 times a month.",
-                            WaterNeeds = 0
+                            Water = "1-2 times a month."
                         },
                         new
                         {
@@ -478,8 +458,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun to partial shade.",
                             Temperature = "65-75 degrees F.",
-                            Water = "Once every 10 days.",
-                            WaterNeeds = 0
+                            Water = "Once every 10 days."
                         },
                         new
                         {
@@ -489,8 +468,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun for 6 hours at least.",
                             Temperature = "40-100 degrees F.",
-                            Water = "1-2 times a month.",
-                            WaterNeeds = 0
+                            Water = "1-2 times a month."
                         },
                         new
                         {
@@ -500,8 +478,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Bright sunlight for a minimum of four hours a day.",
                             Temperature = "60-80 degrees F.",
-                            Water = "Once a month.",
-                            WaterNeeds = 0
+                            Water = "Once a month."
                         },
                         new
                         {
@@ -511,8 +488,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "At least 3-4 hours of direct full sunlight.",
                             Temperature = "35-80 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -522,8 +498,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "At least 6 hours of direct full sunlight.",
                             Temperature = "25-50 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -533,8 +508,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "At least 4-5 hours of morning sunlight and partial shade in the afternoon.",
                             Temperature = "45-100 degrees F.",
-                            Water = "Once every 3-4 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 3-4 weeks."
                         },
                         new
                         {
@@ -544,8 +518,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun to filtered/partial shade.",
                             Temperature = "40-80 degrees F.",
-                            Water = "Once every 2-3 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-3 weeks."
                         },
                         new
                         {
@@ -555,8 +528,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "full sun or bright, indirect light.",
                             Temperature = "45-55 degrees F.",
-                            Water = "Once every 3-4 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 3-4 weeks."
                         },
                         new
                         {
@@ -566,8 +538,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Bright shaded areas.",
                             Temperature = "20-30 degrees F.",
-                            Water = "Once a week.",
-                            WaterNeeds = 0
+                            Water = "Once a week."
                         },
                         new
                         {
@@ -577,8 +548,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full to partial sun.",
                             Temperature = "-20-40 degrees F.",
-                            Water = "Once every 7-10 days.",
-                            WaterNeeds = 0
+                            Water = "Once every 7-10 days."
                         },
                         new
                         {
@@ -588,8 +558,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "At least 6 hours of direct full/partial sunlight.",
                             Temperature = "20-50 degrees F.",
-                            Water = "Once every week; less in the winter.",
-                            WaterNeeds = 0
+                            Water = "Once every week; less in the winter."
                         },
                         new
                         {
@@ -599,8 +568,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "At least 3-4 hours of direct sunlight.",
                             Temperature = "70-90 degrees F.",
-                            Water = "Once a weeks.",
-                            WaterNeeds = 0
+                            Water = "Once a weeks."
                         },
                         new
                         {
@@ -610,8 +578,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "Full sun.",
                             Temperature = "12-112 degrees F.",
-                            Water = "Once every 2-3 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-3 weeks."
                         },
                         new
                         {
@@ -621,8 +588,7 @@ namespace Plant_Life.Migrations
                             Quantity = 0,
                             Sunlight = "At least 4-5 hours of morning sunlight and partial shade in the afternoon.",
                             Temperature = "65-75 degrees F.",
-                            Water = "Once every 2-3 weeks.",
-                            WaterNeeds = 0
+                            Water = "Once every 2-3 weeks."
                         });
                 });
 
@@ -698,9 +664,6 @@ namespace Plant_Life.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -725,9 +688,6 @@ namespace Plant_Life.Migrations
 
                     b.Property<string>("Water")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WaterNeeds")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -792,13 +752,13 @@ namespace Plant_Life.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "696e3c40-645c-4471-943e-322deaaa7a73",
+                            ConcurrencyStamp = "79b62735-d10c-4564-a1d0-75617af2b819",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEObTm5Bb8j3kWXVUqQE5hjvd7sEimvV1Estx9xFm13/43IfE/U6qEOdmTJJtoGzTuw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDU2eb9BzbL4ZcgiNWojMn4QcU0ZHuOquOj09QGsa4oK+DzMddABR1gcQwO5ytbXeQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,

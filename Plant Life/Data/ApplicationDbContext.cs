@@ -22,6 +22,7 @@ namespace Plant_Life.Data
 
         public DbSet<Plant> Plant { get; set; }
         public DbSet<PlantCalendar> PlantCalendar { get; set; }
+        public DbSet<Event> Event { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

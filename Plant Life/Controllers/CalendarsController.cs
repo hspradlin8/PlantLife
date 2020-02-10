@@ -160,47 +160,12 @@ namespace Plant_Life.Controllers
 
         public IActionResult GetUserEvents()
         {
-            //create a dummy list of events
-            List<Event> userEvents = new List<Event>();
-            Event event1 = new Event()
-            {
-                ApplicationUserId = "a7967b54 - e3a0 - 4f59 - bbd5 - 6266cc210da6",
-                EventId = 1,
-                UserId = 1,
-                PlantId = 1,
-                StartDate = new DateTime(2020 ,2,14),
-                EndDate = new DateTime(2020,2,16)
+            var userId = GetCurrentUserAsync();
+            var UserEvents = _context.Event.Where(x => x.ApplicationUserId == userId.Result.Id).ToList();
 
-            };
-
-            Event event2 = new Event()
-            {
-                ApplicationUserId = "a7967b54 - e3a0 - 4f59 - bbd5 - 6266cc210da6",
-                EventId = 2,
-                UserId = 2,
-                PlantId = 2,
-                StartDate = new DateTime(2020,2,17),
-                EndDate = new DateTime(2020,2,18)
-
-            };
-
-            Event event3 = new Event()
-            {
-                ApplicationUserId = "a7967b54 - e3a0 - 4f59 - bbd5 - 6266cc210da6",
-                EventId = 2,
-                UserId = 2,
-                PlantId = 2,
-                StartDate = new DateTime(2020,2,20),
-                EndDate = new DateTime(2020,2,22)
-
-            };
-            userEvents.Add(event1);
-            userEvents.Add(event2);
-            userEvents.Add(event3);
-            //then return list as a JsonResult
-            return Json(userEvents);
+            return Json(UserEvents);
         }
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+    private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-    }
+}
 }
