@@ -69,7 +69,7 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PlantName,Sunlight,Temperature,Water,WaterNeeds,Description,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
+        public async Task<IActionResult> Create([Bind("Id,PlantName,Sunlight,Temperature,WaterNeeds,Description,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
         {
             var user = await GetCurrentUserAsync();
             plant.ApplicationUserId = user.Id;
@@ -137,13 +137,14 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Id,PlantName,Sunlight,Temperature,Water,WaterNeeds,Description,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Id,PlantName,Sunlight,Temperature,WaterNeeds,Description,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
         {
 
             if (id != plant.Id)
             {
                 return NotFound();
             }
+
 
             if (ModelState.IsValid)
             {
@@ -160,6 +161,7 @@ namespace Plant_Life.Controllers
                         plant.Image = fileName;
                     }
                     _context.Update(plant);
+                   
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -186,7 +188,7 @@ namespace Plant_Life.Controllers
         [ValidateAntiForgeryToken]
         //Step 1. delete correct defaultplantuser record
         //Step 2. save a new record in the plant table
-        public async Task<IActionResult> EditUserDefault(int id, [Bind("Id,PlantName,Sunlight,Temperature,Water,WaterNeeds,Description,Issues,Quantity,Image,File")] DefaultPlant defaultPlant, IFormFile file)
+        public async Task<IActionResult> EditUserDefault(int id, [Bind("Id,PlantName,Sunlight,Temperature,WaterNeeds,Description,Issues,Quantity,Image,File")] DefaultPlant defaultPlant, IFormFile file)
         {
 
             if (id != defaultPlant.Id)
@@ -214,7 +216,6 @@ namespace Plant_Life.Controllers
                         PlantName = defaultPlant.PlantName,
                         Sunlight = defaultPlant.Sunlight,
                         Temperature = defaultPlant.Temperature,
-                        Water = defaultPlant.Water,
                         WaterNeeds = defaultPlant.WaterNeeds,
                         Description = defaultPlant.Description,
                         Issues = defaultPlant.Issues,

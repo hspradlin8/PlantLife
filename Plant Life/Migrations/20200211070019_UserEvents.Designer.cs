@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Plant_Life.Data;
 
 namespace Plant_Life.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200211070019_UserEvents")]
+    partial class UserEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,6 +283,9 @@ namespace Plant_Life.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Temperature")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Water")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WaterNeeds")
@@ -731,6 +736,9 @@ namespace Plant_Life.Migrations
                     b.Property<string>("Temperature")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Water")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("WaterNeeds")
                         .HasColumnType("int");
 
@@ -797,13 +805,13 @@ namespace Plant_Life.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1e01ed63-1895-4fdf-aa14-df631ac4d51d",
+                            ConcurrencyStamp = "b1a73ed0-524f-4d5f-9fb8-87026d85ab4b",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAi+XLVfxfeoOEzDhFhBffY2I/glE61ekciT0uHZQvp9uHbAWDkdNXnFCfxyNT/vbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH7kg7v95FuUsTRRl2o96zxdUxdbYN3lNdm7KlEPAbBlX73XDQWNBNPJ1jHqdoDWhg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
