@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             for (i = 0; i < e.length; i++) {
                 var newEvent = {
                     id: e[i].eventId,
-                    title: 'my event',
+                    title: e[i].eventName,
                     start: e[i].startDateString
                 }
                 UserEvents.push(newEvent);

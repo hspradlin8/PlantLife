@@ -30,6 +30,7 @@ namespace Plant_Life.Controllers
         // GET: Plants
         public async Task<IActionResult> Index()
         {
+            //CreateEventsForPlant(new Plant() { Description = "Times A Month" });
             var plantIndexViewModel = new PlantIndexViewModel();
             var user = await GetCurrentUserAsync();
             plantIndexViewModel.Plants = _context.Plant.Where(a => a.ApplicationUserId == user.Id).ToList();
@@ -72,7 +73,7 @@ namespace Plant_Life.Controllers
         {
             var user = await GetCurrentUserAsync();
             plant.ApplicationUserId = user.Id;
-
+            CreateEventsForPlant(plant);
 
             if (plant.File != null && plant.File.Length > 0)
             {
@@ -88,6 +89,7 @@ namespace Plant_Life.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(plant);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -120,7 +122,7 @@ namespace Plant_Life.Controllers
             }
 
             var plant = await _context.DefaultPlant
-                
+
                 .FirstOrDefaultAsync(dp => dp.Id == id);
             if (plant == null)
             {
@@ -210,7 +212,7 @@ namespace Plant_Life.Controllers
                     {
                         ApplicationUserId = currentUser.Id,
                         PlantName = defaultPlant.PlantName,
-                        Sunlight= defaultPlant.Sunlight,
+                        Sunlight = defaultPlant.Sunlight,
                         Temperature = defaultPlant.Temperature,
                         Water = defaultPlant.Water,
                         WaterNeeds = defaultPlant.WaterNeeds,
@@ -304,6 +306,64 @@ namespace Plant_Life.Controllers
         {
             return _context.Plant.Any(e => e.Id == id);
         }
+
+        private void CreateEventsForPlant(Plant plant)
+        {
+            switch (plant.Description)
+            {
+                //case "Times A Week":
+                //int Timesperweek = plant.WaterNeeds;
+                //int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                //int dayOfMonth = DateTime.Now.Day;
+                //int DaysLeftInMonth = daysInMonth - dayOfMonth;
+                //int daysLeftInCurrentWeek = DaysLeftInMonth % 7;
+                //int weeksLeftInCurrentMonth = DaysLeftInMonth / 7;
+                //DateTime NextWeek = DateTime.Now.AddDays(daysLeftInCurrentWeek + 1);
+                //NextWeek.
+
+                case "Times A Month":
+                    List<DateTime> WaterDates = new List<DateTime>();
+                    int TimesperMonth = plant.WaterNeeds;
+                    int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                    int dayOfMonth = DateTime.Now.Day;
+                    int DaysLeftInMonth = daysInMonth - dayOfMonth;
+                    int WaterDayCount = DaysLeftInMonth / TimesperMonth; //3
+
+
+                    for (int i = 0; i <= TimesperMonth; i++)
+                    {
+                        WaterDates.Add(DateTime.Now.AddDays(WaterDayCount * i));
+                    }
+
+                    //for each water date in WaterDates we need to add an event
+                    //create a loop and iterate through water events and create a new event
+                    //object with the plant Id and the Waterdate as the startdate with any other info we need
+                    var user = GetCurrentUserAsync();
+
+                    for (int i = 0; i < WaterDates.Count; i++)
+                    {
+                        Event newWaterEvent = new Event()
+                        {
+                            ApplicationUserId = user.Result.Id,
+                            EventName = plant.PlantName,
+                            Plant = plant,
+                            StartDate = WaterDates[i]
+                        };
+
+                        _context.Add(newWaterEvent);
+
+                    }
+
+                    var x = 0;
+                    break;
+
+                case null:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }

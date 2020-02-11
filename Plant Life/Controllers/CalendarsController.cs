@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Plant_Life.Data;
-using Plant_Life.Migrations;
 using Plant_Life.Models;
+using Plant_Life.Models.ViewModel;
 
 namespace Plant_Life.Controllers
 {
@@ -157,15 +157,34 @@ namespace Plant_Life.Controllers
         {
             return _context.Calendar.Any(e => e.Id == id);
         }
-
+        //step1:Get start date and days frequency
+        //step2: Find out what day to put the first event on
+            //a. find out the difference in days between the today and the startdate
+            //b. find remainder given the days frequency
+            //c. if the remainder is zero- put the event on today; if it is 1 then put the remainder on the next day.
+       //step3: create new event happening every x days from the start day and add as many as you want. 
         public IActionResult GetUserEvents()
         {
             var userId = GetCurrentUserAsync();
-            var UserEvents = _context.Event.Where(x => x.ApplicationUserId == userId.Result.Id).ToList();
+            var userEvents = new PlantIndexViewModel();
+            try
+            {
+                userEvents.Events = _context.Event.ToList();
+                userEvents.Plants = _context.Plant.Where(e => e.ApplicationUserId == userId.Result.Id).ToList();
+                userEvents.DefaultPlantUsers = _context.DefaultPlantUser.Where(e => e.ApplicationUserId == userId.Result.Id)
+                    .Include(dp => dp.DefaultPlant).ToList();
+            }
+            catch(InvalidOperationException) 
+            {
+                return View("~/Views/Home/Index.cshtml");
 
-            return Json(UserEvents);
+            }
+
+       
+            return Json(userEvents.Events);
         }
-    private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-}
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+    }
 }

@@ -24,6 +24,10 @@ namespace Plant_Life.Models
         public string Description { get; set; }
         public string Issues { get; set; }
         public int Quantity { get; set; }
+
+        [DataType(DataType.Date)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DateCreated { get; set; }
         public string? Image { get; set; }
         [NotMapped]
         public IFormFile File { get; set; }
