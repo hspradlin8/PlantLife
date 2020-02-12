@@ -206,7 +206,6 @@ namespace Plant_Life.Controllers
                         {
                             ApplicationUserId = user.Id,
                             EventName = p.PlantName,
-                            
                             StartDate = WaterDates[i]
                         };
                         userEvents.Events.Add(newWaterEvent);
