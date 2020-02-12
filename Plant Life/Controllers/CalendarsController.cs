@@ -163,30 +163,41 @@ namespace Plant_Life.Controllers
         //b. find remainder given the days frequency 
         //c. if the remainder is zero- put the event on today; if it is 1 then put the remainder on the next day.
         //step3: create new event happening every x days from the start day and add as many as you want. 
+
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru, int interval)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(interval))
+                yield return day;
+        }
+
         public async Task <IActionResult> GetUserEvents()
         {
             var user = await GetCurrentUserAsync();
             var userEvents = new PlantIndexViewModel();
             try
             {
-                userEvents.Events = _context.Event.Where(e => e.ApplicationUserId == user.Id).ToList();
+                userEvents.Events = new List<Event>();
                 userEvents.Plants = _context.Plant.Where(e => e.ApplicationUserId == user.Id).ToList();
                 userEvents.DefaultPlantUsers = _context.DefaultPlantUser.Where(e => e.ApplicationUserId == user.Id)
                     .Include(dp => dp.DefaultPlant).ToList();
 
-                foreach(DefaultPlantUser dpu in userEvents.DefaultPlantUsers)
+                foreach(Plant p in userEvents.Plants)
                 {
                     List<DateTime> WaterDates = new List<DateTime>();
-                    int TimesperMonth = dpu.DefaultPlant.WaterNeeds;
+                    int TimesperMonth = p.WaterNeeds;
                     int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
                     int dayOfMonth = DateTime.Now.Day;
+                    DateTime startDate = p.DateCreated;
+                    DateTime lastDayOfCurrentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                                    DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
                     int DaysLeftInMonth = daysInMonth - dayOfMonth;
-                    int WaterDayCount = DaysLeftInMonth / TimesperMonth; //3
+                    int WaterDayCount = DaysLeftInMonth / TimesperMonth;
 
+ 
 
-                    for (int i = 0; i <= TimesperMonth; i++)
+                    foreach (DateTime day in EachDay(startDate, lastDayOfCurrentMonth, p.WaterNeeds))
                     {
-                        WaterDates.Add(DateTime.Now.AddDays(WaterDayCount * i));
+                        WaterDates.Add(day);
                     }
  
                     for (int i = 0; i < WaterDates.Count; i++)
@@ -194,7 +205,7 @@ namespace Plant_Life.Controllers
                         Event newWaterEvent = new Event()
                         {
                             ApplicationUserId = user.Id,
-                            EventName = dpu.DefaultPlant.PlantName,
+                            EventName = p.PlantName,
                             
                             StartDate = WaterDates[i]
                         };

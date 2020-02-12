@@ -80,16 +80,26 @@ namespace Plant_Life.Controllers
         public async Task<IActionResult> AddDefaultPlant(int id)
         {
             var user = await GetCurrentUserAsync();
-            var defaultPlantUser = new DefaultPlantUser
+           
+
+            DefaultPlant dp = _context.DefaultPlant.Where(x => x.Id == id).FirstOrDefault();
+
+            Plant newPlant = new Plant()
             {
                 ApplicationUserId = user.Id,
-                DefaultPlantId = id,
-                Image = null
+                PlantName = dp.PlantName,
+                Sunlight = dp.Sunlight,
+                Temperature = dp.Temperature,
+                WaterNeeds = dp.WaterNeeds,
+                //Description = dp.Description,
+                Issues = dp.Issues,
+                Quantity = dp.Quantity,
+                Image = dp.Image
 
             };
 
 
-            _context.Add(defaultPlantUser);
+            _context.Add(newPlant);
 
 
             await _context.SaveChangesAsync();

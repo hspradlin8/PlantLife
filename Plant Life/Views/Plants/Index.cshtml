@@ -26,9 +26,9 @@
             <th>
                 Water Needs
             </th>
-            <th>
+            @*<th>
                 Description
-            </th>
+            </th>*@
             <th>
                 Issues
             </th>
@@ -57,9 +57,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.WaterNeeds)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Issues)
             </td>
@@ -67,9 +67,9 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
+            <a asp-controller="Plants" asp-action="Edit" asp-route-id="@item.Id">Add An Image</a>
                 <img src="@("/Images/" + item.Image)" style="max-width: 150px" />
             </td>
-
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
 
@@ -92,9 +92,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.DefaultPlant.WaterNeeds)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.DefaultPlant.Description)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.DefaultPlant.Issues)
         </td>
@@ -102,8 +102,8 @@
             @Html.DisplayFor(modelItem => item.DefaultPlant.Quantity)
         </td>
         <td>
-            <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>
-            @*<img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
+            @*<a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>*@
+           @* <img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
         </td>
         <td>
             <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Edit</a> |

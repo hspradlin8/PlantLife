@@ -16,9 +16,9 @@ namespace Plant_Life.Models
         public string PlantName { get; set; }
         public string Sunlight { get; set; }
         public string Temperature { get; set; }
-      
+      [Display(Name = "Water everyday")]
         public int WaterNeeds { get; set; }
-        public string Description { get; set; }
+       // public string Description { get; set; }
         public string Issues { get; set; }
         public int Quantity { get; set; }
         public string Image { get; set; }

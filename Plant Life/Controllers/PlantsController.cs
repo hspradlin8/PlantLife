@@ -73,7 +73,7 @@ namespace Plant_Life.Controllers
         {
             var user = await GetCurrentUserAsync();
             plant.ApplicationUserId = user.Id;
-            CreateEventsForPlant(plant);
+            
 
             if (plant.File != null && plant.File.Length > 0)
             {
@@ -161,35 +161,7 @@ namespace Plant_Life.Controllers
                         plant.Image = fileName;
                     }
                     _context.Update(plant);
-                    List<Event> deleteWaterEvents = _context.Event.Where(p => p.PlantId == plant.Id).ToList();
-                    _context.Event.RemoveRange(deleteWaterEvents);
-                    List<DateTime> WaterDates = new List<DateTime>();
-                    int TimesperMonth = plant.WaterNeeds;
-                    int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                    int dayOfMonth = DateTime.Now.Day;
-                    int DaysLeftInMonth = daysInMonth - dayOfMonth;
-                    int WaterDayCount = DaysLeftInMonth / TimesperMonth; 
-
-                    for (int i = 0; i <= TimesperMonth; i++)
-                    {
-                        WaterDates.Add(DateTime.Now.AddDays(WaterDayCount * i));
-                    }
-
-                    var user = GetCurrentUserAsync();
-
-                    for (int i = 0; i < WaterDates.Count; i++)
-                    {
-                        Event newWaterEvent = new Event()
-                        { 
-                            ApplicationUserId = user.Result.Id,
-                            EventName = plant.PlantName,
-                            Plant = plant,
-                            StartDate = WaterDates[i]
-                        };
-
-                        _context.Add(newWaterEvent);
-
-                    }
+                  
                     await _context.SaveChangesAsync();
                    
                 }
@@ -246,7 +218,7 @@ namespace Plant_Life.Controllers
                         Sunlight = defaultPlant.Sunlight,
                         Temperature = defaultPlant.Temperature,
                         WaterNeeds = defaultPlant.WaterNeeds,
-                        Description = defaultPlant.Description,
+                        //Description = defaultPlant.Description,
                         Issues = defaultPlant.Issues,
                         Quantity = defaultPlant.Quantity,
                         Image = defaultPlant.Image
@@ -317,7 +289,6 @@ namespace Plant_Life.Controllers
             var plant = await _context.Plant.FindAsync(id);
             _context.Plant.Remove(plant);
             await _context.SaveChangesAsync();
-            //DeleteEventsForPlant(plant);
             return RedirectToAction(nameof(Index));
         }
 
@@ -336,96 +307,6 @@ namespace Plant_Life.Controllers
         private bool PlantExists(int id)
         {
             return _context.Plant.Any(e => e.Id == id);
-        }
-
-        private void CreateEventsForPlant(Plant plant)
-        {
-            switch (plant.Description)
-            {
-                //case "Times A Week":
-                //int Timesperweek = plant.WaterNeeds;
-                //int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                //int dayOfMonth = DateTime.Now.Day;
-                //int DaysLeftInMonth = daysInMonth - dayOfMonth;
-                //int daysLeftInCurrentWeek = DaysLeftInMonth % 7;
-                //int weeksLeftInCurrentMonth = DaysLeftInMonth / 7;
-                //DateTime NextWeek = DateTime.Now.AddDays(daysLeftInCurrentWeek + 1);
-                //NextWeek.
-
-                case "Times A Month":
-                    List<DateTime> WaterDates = new List<DateTime>();
-                    int TimesperMonth = plant.WaterNeeds;
-                    int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                    int dayOfMonth = DateTime.Now.Day;
-                    int DaysLeftInMonth = daysInMonth - dayOfMonth;
-                    int WaterDayCount = DaysLeftInMonth / TimesperMonth; //3
-
-
-                    for (int i = 0; i <= TimesperMonth; i++)
-                    {
-                        WaterDates.Add(DateTime.Now.AddDays(WaterDayCount * i));
-                    }
-
-                    //for each water date in WaterDates we need to add an event
-                    //create a loop and iterate through water events and create a new event
-                    //object with the plant Id and the Waterdate as the startdate with any other info we need
-                    var user = GetCurrentUserAsync();
-
-                    for (int i = 0; i < WaterDates.Count; i++)
-                    {
-                        Event newWaterEvent = new Event()
-                        {
-                            ApplicationUserId = user.Result.Id,
-                            EventName = plant.PlantName,
-                            Plant = plant,
-                            StartDate = WaterDates[i]
-                        };
-
-                        _context.Add(newWaterEvent);
-
-                    }
-
-                    var x = 0;
-                    break;
-
-                case null:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void DeleteEventsForPlant(Plant plant)
-        {
-
-
-            var user = GetCurrentUserAsync();
-
-            List<Event> deleteWaterEvents = _context.Event.Where(p => p.PlantId == plant.Id).ToList();
-
-            foreach (var e in deleteWaterEvents.ToList())
-            {
-                deleteWaterEvents.Remove(e);
-            }
-
-
-        }
-
-        private async void EditEventsForPlant(Plant plant)
-        {
-            //pull all events
-
-            var user = GetCurrentUserAsync();
-
-            List<Event> deleteWaterEvents = _context.Event.Where(p => p.PlantId == plant.Id).ToList();
-
-            //delete
-            
-                _context.Event.RemoveRange(deleteWaterEvents);
-            
-
-            //add newEvents with the Create Method
-            CreateEventsForPlant(plant);
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);

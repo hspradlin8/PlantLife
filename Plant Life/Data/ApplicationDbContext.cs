@@ -61,8 +61,7 @@ namespace Plant_Life.Data
                 PlantName = "Aloe Vera",
                 Sunlight = "Bright, indirect sunlight or artifical sunlight.",
                 Temperature = "55-80 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Diseases that occur with aloe vera is root rot, soft rot, fungal stem rot and leaf rot ",
                 Quantity = 0
   
@@ -75,8 +74,7 @@ namespace Plant_Life.Data
                 PlantName = "Zebra Plant",
                 Sunlight = "Partial sun or shade.",
                 Temperature = "65-80 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Usually pest free.",
                 Quantity = 0
 
@@ -89,8 +87,7 @@ namespace Plant_Life.Data
                 PlantName = "Jade Plant",
                 Sunlight = "Full sun for at least 4 hours each day.",
                 Temperature = "65-70 degrees F.",
-                WaterNeeds = 2,
-                Description = "Times a week",
+                WaterNeeds = 5,
                 Issues = "Black spots caused from insects, viruses, and fungal disease.",
                 Quantity = 0
             };
@@ -102,8 +99,7 @@ namespace Plant_Life.Data
                 PlantName = "Flaming Katy",
                 Sunlight = "Bright light to full sun.",
                 Temperature = "65-70 degrees F.",
-                WaterNeeds = 2,
-                Description = "Times a week",
+                WaterNeeds = 55,
                 Issues = "Basal stem rot and Botryis.",
                 Quantity = 0
             };
@@ -115,8 +111,7 @@ namespace Plant_Life.Data
                 PlantName = "Burro's Tail",
                 Sunlight = "Full sun for at least 4 hours each day.",
                 Temperature = "65-75 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a month",
+                WaterNeeds = 7,
                 Issues = "Overwatering and Mealy bugs.",
                 Quantity = 0
             };
@@ -128,8 +123,7 @@ namespace Plant_Life.Data
                 PlantName = "Panda Plant",
                 Sunlight = "Bright light to full sun.",
                 Temperature = "60-75 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a month",
+                WaterNeeds = 9,
                 Issues = "Overwatering and Mealybugs, scale, red spidermites.",
                 Quantity = 0
             };
@@ -141,8 +135,7 @@ namespace Plant_Life.Data
                 PlantName = "Roseum",
                 Sunlight = "Partial shade to full sun.",
                 Temperature = "60-80 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Mealybugs, scale, red spidermites, and overwatering.",
                 Quantity = 0
             };
@@ -154,8 +147,7 @@ namespace Plant_Life.Data
                 PlantName = "Pincushion Cactus",
                 Sunlight = "Direct sunlight.",
                 Temperature = "50-75 degrees F.",
-                WaterNeeds = 2,
-                Description = "Times a week",
+                WaterNeeds = 14,
                 Issues = "Overwatering, Mealybugs, and scale bugs.",
                 Quantity = 0
             };
@@ -167,8 +159,7 @@ namespace Plant_Life.Data
                 PlantName = "Snake Plant",
                 Sunlight = "low light, full light and indirect sunlight.",
                 Temperature = "70-90 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a week",
+                WaterNeeds = 14,
                 Issues = "Fungal problems, such as southern blight and red leaf spot.",
                 Quantity = 0
             };
@@ -180,8 +171,7 @@ namespace Plant_Life.Data
                 PlantName = "Hens-and-Chicks",
                 Sunlight = "Full sunlight.",
                 Temperature = "65-75 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 9,
                 Issues = "Overwatering causing root rot.",
                 Quantity = 0
             };
@@ -193,8 +183,7 @@ namespace Plant_Life.Data
                 PlantName = "Stonecrop",
                 Sunlight = "Full sunlight.",
                 Temperature = "-35-40 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 9,
                 Issues = "Powdery mildrew, botrytis, and root rot.",
                 Quantity = 0
             };
@@ -206,8 +195,7 @@ namespace Plant_Life.Data
                 PlantName = "Whale's Tongue Agave",
                 Sunlight = "Full sun or lightly filtered shade.",
                 Temperature = "10-70 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "none.",
                 Quantity = 0
             };
@@ -219,8 +207,7 @@ namespace Plant_Life.Data
                 PlantName = "Ball Cactus",
                 Sunlight = "Direct sunlight in the morning/afternoonand partial shade during the hottest part of the day.",
                 Temperature = "45-85 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Sucking pests, fungal and bacteria disease.",
                 Quantity = 0
             };
@@ -232,8 +219,7 @@ namespace Plant_Life.Data
                 PlantName = "Plush Plant",
                 Sunlight = "Full to partial sun.",
                 Temperature = "35-50 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 9,
                 Issues = "Mealy bugs.",
                 Quantity = 0
             };
@@ -245,8 +231,7 @@ namespace Plant_Life.Data
                 PlantName = "Dudleya Plant",
                 Sunlight = "Full sun and partial sun in afternoons.",
                 Temperature = "18-50 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a month",
+                WaterNeeds = 7,
                 Issues = "Ants, Mealy bugs, snails, slugs, and overwatering.",
                 Quantity = 0
             };
@@ -258,8 +243,7 @@ namespace Plant_Life.Data
                 PlantName = "Pig's Ear",
                 Sunlight = "Full sun to partial shade.",
                 Temperature = "18-22 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a month",
+                WaterNeeds = 6,
                 Issues = "Snails, slugs, and overwatering.",
                 Quantity = 0
             };
@@ -271,8 +255,7 @@ namespace Plant_Life.Data
                 PlantName = "Zwartkop Plant",
                 Sunlight = "Full sun to partial shade.",
                 Temperature = "65-75 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a month",
+                WaterNeeds = 14,
                 Issues = "Root rot caused by overwatering.",
                 Quantity = 0
             };
@@ -284,8 +267,7 @@ namespace Plant_Life.Data
                 PlantName = "Sunburst Plant",
                 Sunlight = "Full sun for 6 hours at least.",
                 Temperature = "40-100 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a month",
+                WaterNeeds = 9,
                 Issues = "Root rot from overwatering.",
                 Quantity = 0
             };
@@ -297,8 +279,7 @@ namespace Plant_Life.Data
                 PlantName = "Torch Cactus",
                 Sunlight = "Bright sunlight for a minimum of four hours a day.",
                 Temperature = "60-80 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a month",
+                WaterNeeds = 7,
                 Issues = "Root rot and leaf rot from overwatering.",
                 Quantity = 0
             };
@@ -310,8 +291,7 @@ namespace Plant_Life.Data
                 PlantName = "Crown of Thorns",
                 Sunlight = "At least 3-4 hours of direct full sunlight.",
                 Temperature = "35-80 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Root rot caused by overwatering.",
                 Quantity = 0
             };
@@ -323,8 +303,7 @@ namespace Plant_Life.Data
                 PlantName = "Calico Hearts Plant",
                 Sunlight = "At least 6 hours of direct full sunlight.",
                 Temperature = "25-50 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 9,
                 Issues = "Root rot caused by overwatering and toxic to humans and animals.",
                 Quantity = 0
             };
@@ -336,8 +315,7 @@ namespace Plant_Life.Data
                 PlantName = "Bunny Ears Cactus",
                 Sunlight = "At least 4-5 hours of morning sunlight and partial shade in the afternoon.",
                 Temperature = "45-100 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a week",
+                WaterNeeds = 9,
                 Issues = "Stem base rot and brown spots.",
                 Quantity = 0
             };
@@ -349,8 +327,7 @@ namespace Plant_Life.Data
                 PlantName = "Doran Black Aloe",
                 Sunlight = "Full sun to filtered/partial shade.",
                 Temperature = "40-80 degrees F.",
-                WaterNeeds = 2,
-                Description = "Times a week",
+                WaterNeeds = 14,
                 Issues = "Overwatering.",
                 Quantity = 0
             };
@@ -362,8 +339,7 @@ namespace Plant_Life.Data
                 PlantName = "Ponytail Palm",
                 Sunlight = "full sun or bright, indirect light.",
                 Temperature = "45-55 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a week",
+                WaterNeeds = 10,
                 Issues = "Overwatering, spidermites, scale, or mealybugs.",
                 Quantity = 0
             };
@@ -375,8 +351,7 @@ namespace Plant_Life.Data
                 PlantName = "Bear's Paw",
                 Sunlight = "Bright shaded areas.",
                 Temperature = "20-30 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times week",
+                WaterNeeds = 5,
                 Issues = "Fungal disease caused by overwatering.",
                 Quantity = 0
             };
@@ -388,8 +363,7 @@ namespace Plant_Life.Data
                 PlantName = "Tufted Ice Plant",
                 Sunlight = "Full to partial sun.",
                 Temperature = "-20-40 degrees F.",
-                WaterNeeds = 3,
-                Description = "Times a month",
+                WaterNeeds = 8,
                 Issues = "Mealy bugs and scale.",
                 Quantity = 0
             };
@@ -401,8 +375,7 @@ namespace Plant_Life.Data
                 PlantName = "Mexican Snowball",
                 Sunlight = "At least 6 hours of direct full/partial sunlight.",
                 Temperature = "20-50 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Overwatering.",
                 Quantity = 0
             };
@@ -414,8 +387,7 @@ namespace Plant_Life.Data
                 PlantName = "Tigers Jaw Plant",
                 Sunlight = "At least 3-4 hours of direct sunlight.",
                 Temperature = "70-90 degrees F.",
-                WaterNeeds = 1,
-                Description = "Times a week",
+                WaterNeeds = 7,
                 Issues = "Overwatering and sudden leaf wilting.",
                 Quantity = 0
             };
@@ -427,8 +399,7 @@ namespace Plant_Life.Data
                 PlantName = "Ghost Plant",
                 Sunlight = "Full sun.",
                 Temperature = "12-112 degrees F.",
-                WaterNeeds = 2,
-                Description = "Times a week",
+                WaterNeeds = 14,
                 Issues = "Root rot.",
                 Quantity = 0
             };
@@ -440,8 +411,7 @@ namespace Plant_Life.Data
                 PlantName = "Living Stone",
                 Sunlight = "At least 4-5 hours of morning sunlight and partial shade in the afternoon.",
                 Temperature = "65-75 degrees F.",
-                WaterNeeds = 2,
-                Description = "Times a week",
+                WaterNeeds = 14,
                 Issues = "Spider mites.",
                 Quantity = 0
             };
