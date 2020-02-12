@@ -13,10 +13,10 @@ namespace Plant_Life.Models
         public int EventId { get; set; }
 
         public string EventName { get; set; }
+        public int PlantId { get; set; }
         public Plant Plant { get; set; }
         public DateTime StartDate { get; set; }
         public string StartDateString { get { return StartDate.Date.ToString("MM/dd/yyyy"); } }
-
 
     }
 }

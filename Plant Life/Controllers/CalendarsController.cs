@@ -158,23 +158,51 @@ namespace Plant_Life.Controllers
             return _context.Calendar.Any(e => e.Id == id);
         }
         //step1:Get start date and days frequency
-        //step2: Find out what day to put the first event on
-            //a. find out the difference in days between the today and the startdate
-            //b. find remainder given the days frequency
-            //c. if the remainder is zero- put the event on today; if it is 1 then put the remainder on the next day.
-       //step3: create new event happening every x days from the start day and add as many as you want. 
-        public IActionResult GetUserEvents()
+        //step2: Find out what day to put the first event on     today's plantDate
+        //a. find out the difference in days between the today and the startdate  event.Date and getDate.now 
+        //b. find remainder given the days frequency 
+        //c. if the remainder is zero- put the event on today; if it is 1 then put the remainder on the next day.
+        //step3: create new event happening every x days from the start day and add as many as you want. 
+        public async Task <IActionResult> GetUserEvents()
         {
-            var userId = GetCurrentUserAsync();
+            var user = await GetCurrentUserAsync();
             var userEvents = new PlantIndexViewModel();
             try
             {
-                userEvents.Events = _context.Event.ToList();
-                userEvents.Plants = _context.Plant.Where(e => e.ApplicationUserId == userId.Result.Id).ToList();
-                userEvents.DefaultPlantUsers = _context.DefaultPlantUser.Where(e => e.ApplicationUserId == userId.Result.Id)
+                userEvents.Events = _context.Event.Where(e => e.ApplicationUserId == user.Id).ToList();
+                userEvents.Plants = _context.Plant.Where(e => e.ApplicationUserId == user.Id).ToList();
+                userEvents.DefaultPlantUsers = _context.DefaultPlantUser.Where(e => e.ApplicationUserId == user.Id)
                     .Include(dp => dp.DefaultPlant).ToList();
+
+                foreach(DefaultPlantUser dpu in userEvents.DefaultPlantUsers)
+                {
+                    List<DateTime> WaterDates = new List<DateTime>();
+                    int TimesperMonth = dpu.DefaultPlant.WaterNeeds;
+                    int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                    int dayOfMonth = DateTime.Now.Day;
+                    int DaysLeftInMonth = daysInMonth - dayOfMonth;
+                    int WaterDayCount = DaysLeftInMonth / TimesperMonth; //3
+
+
+                    for (int i = 0; i <= TimesperMonth; i++)
+                    {
+                        WaterDates.Add(DateTime.Now.AddDays(WaterDayCount * i));
+                    }
+ 
+                    for (int i = 0; i < WaterDates.Count; i++)
+                    {
+                        Event newWaterEvent = new Event()
+                        {
+                            ApplicationUserId = user.Id,
+                            EventName = dpu.DefaultPlant.PlantName,
+                            
+                            StartDate = WaterDates[i]
+                        };
+                        userEvents.Events.Add(newWaterEvent);
+                    }
+                }
             }
-            catch(InvalidOperationException) 
+            catch(InvalidOperationException ex)
             {
                 return View("~/Views/Home/Index.cshtml");
 

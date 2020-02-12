@@ -30,7 +30,7 @@ namespace Plant_Life.Controllers
         // GET: Plants
         public async Task<IActionResult> Index()
         {
-            //CreateEventsForPlant(new Plant() { Description = "Times A Month" });
+            
             var plantIndexViewModel = new PlantIndexViewModel();
             var user = await GetCurrentUserAsync();
             plantIndexViewModel.Plants = _context.Plant.Where(a => a.ApplicationUserId == user.Id).ToList();
@@ -161,8 +161,37 @@ namespace Plant_Life.Controllers
                         plant.Image = fileName;
                     }
                     _context.Update(plant);
-                   
+                    List<Event> deleteWaterEvents = _context.Event.Where(p => p.PlantId == plant.Id).ToList();
+                    _context.Event.RemoveRange(deleteWaterEvents);
+                    List<DateTime> WaterDates = new List<DateTime>();
+                    int TimesperMonth = plant.WaterNeeds;
+                    int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                    int dayOfMonth = DateTime.Now.Day;
+                    int DaysLeftInMonth = daysInMonth - dayOfMonth;
+                    int WaterDayCount = DaysLeftInMonth / TimesperMonth; 
+
+                    for (int i = 0; i <= TimesperMonth; i++)
+                    {
+                        WaterDates.Add(DateTime.Now.AddDays(WaterDayCount * i));
+                    }
+
+                    var user = GetCurrentUserAsync();
+
+                    for (int i = 0; i < WaterDates.Count; i++)
+                    {
+                        Event newWaterEvent = new Event()
+                        { 
+                            ApplicationUserId = user.Result.Id,
+                            EventName = plant.PlantName,
+                            Plant = plant,
+                            StartDate = WaterDates[i]
+                        };
+
+                        _context.Add(newWaterEvent);
+
+                    }
                     await _context.SaveChangesAsync();
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -288,6 +317,7 @@ namespace Plant_Life.Controllers
             var plant = await _context.Plant.FindAsync(id);
             _context.Plant.Remove(plant);
             await _context.SaveChangesAsync();
+            //DeleteEventsForPlant(plant);
             return RedirectToAction(nameof(Index));
         }
 
@@ -365,6 +395,40 @@ namespace Plant_Life.Controllers
             }
         }
 
+        private void DeleteEventsForPlant(Plant plant)
+        {
+
+
+            var user = GetCurrentUserAsync();
+
+            List<Event> deleteWaterEvents = _context.Event.Where(p => p.PlantId == plant.Id).ToList();
+
+            foreach (var e in deleteWaterEvents.ToList())
+            {
+                deleteWaterEvents.Remove(e);
+            }
+
+
+        }
+
+        private async void EditEventsForPlant(Plant plant)
+        {
+            //pull all events
+
+            var user = GetCurrentUserAsync();
+
+            List<Event> deleteWaterEvents = _context.Event.Where(p => p.PlantId == plant.Id).ToList();
+
+            //delete
+            
+                _context.Event.RemoveRange(deleteWaterEvents);
+            
+
+            //add newEvents with the Create Method
+            CreateEventsForPlant(plant);
+        }
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
+
