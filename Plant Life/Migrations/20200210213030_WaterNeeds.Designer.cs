@@ -10,8 +10,8 @@ using Plant_Life.Data;
 namespace Plant_Life.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200203152907_Initial")]
-    partial class Initial
+    [Migration("20200210213030_WaterNeeds")]
+    partial class WaterNeeds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -263,16 +263,32 @@ namespace Plant_Life.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PlantCare")
+                    b.Property<string>("Issues")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlantName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sunlight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Temperature")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Water")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WaterNeeds")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -283,212 +299,332 @@ namespace Plant_Life.Migrations
                         new
                         {
                             Id = 1,
-                            PlantCare = "Light: Bright, indirect sunlight or artifical sunlight. Temp:55-80 degrees F.Water:Once every 3-4 weeks.Issues:Diseases that occur with aloe vera is root rot, soft rot, fungal stem rot and leaf rot ",
+                            Description = "Times a week",
+                            Issues = "Diseases that occur with aloe vera is root rot, soft rot, fungal stem rot and leaf rot ",
                             PlantName = "Aloe Vera",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Bright, indirect sunlight or artifical sunlight.",
+                            Temperature = "55-80 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 2,
-                            PlantCare = "Light:Partial sun or shade. Temp:65-80 degrees F.Water:Once every 3-4 weeks. Issues:Usually pest free.",
+                            Description = "Times a week",
+                            Issues = "Usually pest free.",
                             PlantName = "Zebra Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Partial sun or shade.",
+                            Temperature = "65-80 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 3,
-                            PlantCare = "Light:Full sun for at least 4 hours each day. Temp:65-70 degrees F.Water:Once every 2-3 weeks.Issues:Black spots caused from insects, viruses, and fungal disease.",
+                            Description = "Times a week",
+                            Issues = "Black spots caused from insects, viruses, and fungal disease.",
                             PlantName = "Jade Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun for at least 4 hours each day.",
+                            Temperature = "65-70 degrees F.",
+                            WaterNeeds = 2
                         },
                         new
                         {
                             Id = 4,
-                            PlantCare = "Light:Bright light to full sun. Temp:65-70 degrees F.Water:Once every 2-3 weeks.Issues:Basal stem rot and Botryis .",
+                            Description = "Times a week",
+                            Issues = "Basal stem rot and Botryis.",
                             PlantName = "Flaming Katy",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Bright light to full sun.",
+                            Temperature = "65-70 degrees F.",
+                            WaterNeeds = 2
                         },
                         new
                         {
                             Id = 5,
-                            PlantCare = "Light:Full sun for at least 4 hours each day. Temp:65-75 degrees F.Water:Once every 4 weeks.Issues:Overwatering and Mealy bugs.",
+                            Description = "Times a month",
+                            Issues = "Overwatering and Mealy bugs.",
                             PlantName = "Burro's Tail",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun for at least 4 hours each day.",
+                            Temperature = "65-75 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 6,
-                            PlantCare = "Light:Bright light to full sun. Temp:60-75 degrees F.Water:Once every 10 days.Issues:Overwatering and Mealybugs, scale, red spidermites.",
+                            Description = "Times a month",
+                            Issues = "Overwatering and Mealybugs, scale, red spidermites.",
                             PlantName = "Panda Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Bright light to full sun.",
+                            Temperature = "60-75 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 7,
-                            PlantCare = "Light:Partial shade to full sun. Temp:60-80 degrees F.Water:Once every 1-2 weeks.Issues:Mealybugs, scale, red spidermites, and overwatering.",
+                            Description = "Times a week",
+                            Issues = "Mealybugs, scale, red spidermites, and overwatering.",
                             PlantName = "Roseum",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Partial shade to full sun.",
+                            Temperature = "60-80 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 8,
-                            PlantCare = "Light:Direct sunlight. Temp:50-75 degrees F.Water:Once every 2-3 weeks.Issues:Overwatering, Mealybugs, and scale bugs.",
+                            Description = "Times a week",
+                            Issues = "Overwatering, Mealybugs, and scale bugs.",
                             PlantName = "Pincushion Cactus",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Direct sunlight.",
+                            Temperature = "50-75 degrees F.",
+                            WaterNeeds = 2
                         },
                         new
                         {
                             Id = 9,
-                            PlantCare = "Light:low light, full light and indirect sunlight. Temp:70-90 degrees F.Water:Once every 2-6 weeks.Issues:Fungal problems, such as southern blight and red leaf spot.",
+                            Description = "Times a week",
+                            Issues = "Fungal problems, such as southern blight and red leaf spot.",
                             PlantName = "Snake Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "low light, full light and indirect sunlight.",
+                            Temperature = "70-90 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 10,
-                            PlantCare = "Light:Full sunlight. Temp:65-75 degrees F.Water:Once a week.Issues:Overwatering causing root rot.",
+                            Description = "Times a week",
+                            Issues = "Overwatering causing root rot.",
                             PlantName = "Hens-and-Chicks",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sunlight.",
+                            Temperature = "65-75 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 11,
-                            PlantCare = "Light:Full sunlight. Temp:-35-40 degrees F.Water:Once a week.Issues:Powdery mildrew, botrytis, and root rot.",
+                            Description = "Times a week",
+                            Issues = "Powdery mildrew, botrytis, and root rot.",
                             PlantName = "Stonecrop",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sunlight.",
+                            Temperature = "-35-40 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 12,
-                            PlantCare = "Light:Full sun or lightly filtered shade. Temp:10-70 degrees F.Water:Once a week.Issues:none.",
+                            Description = "Times a week",
+                            Issues = "none.",
                             PlantName = "Whale's Tongue Agave",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun or lightly filtered shade.",
+                            Temperature = "10-70 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 13,
-                            PlantCare = "Light:Direct sunlight in the morning/afternoonand partial shade during the hottest part of the day.Temp:45-85 degrees F.Water:Once a week.Issues:Sucking pests, fungal and bacteria disease.",
+                            Description = "Times a week",
+                            Issues = "Sucking pests, fungal and bacteria disease.",
                             PlantName = "Ball Cactus",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Direct sunlight in the morning/afternoonand partial shade during the hottest part of the day.",
+                            Temperature = "45-85 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 14,
-                            PlantCare = "Light: Full to partial sun.Temp:35-50 degrees F.Water:Once a week.Issues:Mealy bugs.",
+                            Description = "Times a week",
+                            Issues = "Mealy bugs.",
                             PlantName = "Plush Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full to partial sun.",
+                            Temperature = "35-50 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 15,
-                            PlantCare = "Light: Full sun and partial sun in afternoons.Temp:18-50 degrees F.Water:Once a month.Issues:Ants, Mealy bugs, snails, slugs, and overwatering.",
+                            Description = "Times a month",
+                            Issues = "Ants, Mealy bugs, snails, slugs, and overwatering.",
                             PlantName = "Dudleya Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun and partial sun in afternoons.",
+                            Temperature = "18-50 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 16,
-                            PlantCare = "Light: Full sun to partial shade.Temp:18-22 degrees F.Water:1-2 times a month.Issues:Snails, slugs, and overwatering.",
+                            Description = "Times a month",
+                            Issues = "Snails, slugs, and overwatering.",
                             PlantName = "Pig's Ear",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun to partial shade.",
+                            Temperature = "18-22 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 17,
-                            PlantCare = "Light: Full sun to partial shade.Temp:65-75 degrees F.Water:Once every 10 days.Issues:Root rot caused by overwatering.",
+                            Description = "Times a month",
+                            Issues = "Root rot caused by overwatering.",
                             PlantName = "Zwartkop Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun to partial shade.",
+                            Temperature = "65-75 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 18,
-                            PlantCare = "Light: Full sun for 6 hours at least.Temp:40-100 degrees F.Water:1-2 times a month.Issues:Root rot from overwatering.",
+                            Description = "Times a month",
+                            Issues = "Root rot from overwatering.",
                             PlantName = "Sunburst Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun for 6 hours at least.",
+                            Temperature = "40-100 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 19,
-                            PlantCare = "Light:Bright sunlight for a minimum of four hours a day.Temp:60-80 degrees F.Water:Once a month.Issues:Root rot and leaf rot from overwatering.",
+                            Description = "Times a month",
+                            Issues = "Root rot and leaf rot from overwatering.",
                             PlantName = "Torch Cactus",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Bright sunlight for a minimum of four hours a day.",
+                            Temperature = "60-80 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 20,
-                            PlantCare = "Light:At least 3-4 hours of direct full sunlight.Temp:35-80 degrees F.Water:Once a week.Issues:Root rot caused by overwatering.",
+                            Description = "Times a week",
+                            Issues = "Root rot caused by overwatering.",
                             PlantName = "Crown of Thorns",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "At least 3-4 hours of direct full sunlight.",
+                            Temperature = "35-80 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 21,
-                            PlantCare = "Light:At least 6 hours of direct full sunlight.Temp:25-50 degrees F.Water:Once a week.Issues:Root rot caused by overwatering and toxic to humans and animals.",
+                            Description = "Times a week",
+                            Issues = "Root rot caused by overwatering and toxic to humans and animals.",
                             PlantName = "Calico Hearts Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "At least 6 hours of direct full sunlight.",
+                            Temperature = "25-50 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 22,
-                            PlantCare = "Light:At least 4-5 hours of morning sunlight and partial shade in the afternoon.Temp:45-100 degrees F.Water:Once every 3-4 weeks.Issues:Stem base rot and brown spots.",
+                            Description = "Times a week",
+                            Issues = "Stem base rot and brown spots.",
                             PlantName = "Bunny Ears Cactus",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "At least 4-5 hours of morning sunlight and partial shade in the afternoon.",
+                            Temperature = "45-100 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 23,
-                            PlantCare = "Light:Full sun to filtered/partial shade.Temp:40-80 degrees F.Water:Once every 2-3 weeks.Issues:Overwatering.",
+                            Description = "Times a week",
+                            Issues = "Overwatering.",
                             PlantName = "Doran Black Aloe",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun to filtered/partial shade.",
+                            Temperature = "40-80 degrees F.",
+                            WaterNeeds = 2
                         },
                         new
                         {
                             Id = 24,
-                            PlantCare = "full sun or bright, indirect light.Temp:45-55 degrees F.Water:Once every 3-4 weeks.Issues:overwatering, spidermites, scale, or mealybugs.",
+                            Description = "Times a week",
+                            Issues = "Overwatering, spidermites, scale, or mealybugs.",
                             PlantName = "Ponytail Palm",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "full sun or bright, indirect light.",
+                            Temperature = "45-55 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 25,
-                            PlantCare = "Light:Bright shaded areas.Temp:20-30 degrees F.Water:Once a week.Issues:Fungal disease caused by overwatering.",
+                            Description = "Times week",
+                            Issues = "Fungal disease caused by overwatering.",
                             PlantName = "Bear's Paw",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Bright shaded areas.",
+                            Temperature = "20-30 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 26,
-                            PlantCare = "Light: Full to partial sun.Temp:-20-40 degrees F.Water:Once every 7-10 days.Issues:Mealy bugs and scale.",
+                            Description = "Times a month",
+                            Issues = "Mealy bugs and scale.",
                             PlantName = "Tufted Ice Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full to partial sun.",
+                            Temperature = "-20-40 degrees F.",
+                            WaterNeeds = 3
                         },
                         new
                         {
                             Id = 27,
-                            PlantCare = "Light:At least 6 hours of direct full/partial sunlight.Temp:20-50 degrees F.Water:Once every week; less in the winter.Issues:Overwatering.",
+                            Description = "Times a week",
+                            Issues = "Overwatering.",
                             PlantName = "Mexican Snowball",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "At least 6 hours of direct full/partial sunlight.",
+                            Temperature = "20-50 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 28,
-                            PlantCare = "Light:At least 3-4 hours of direct sunlight.Temp:70-90 degrees F.Water:Once a weeks.Issues:Overwatering and sudden leaf wilting.",
+                            Description = "Times a week",
+                            Issues = "Overwatering and sudden leaf wilting.",
                             PlantName = "Tigers Jaw Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "At least 3-4 hours of direct sunlight.",
+                            Temperature = "70-90 degrees F.",
+                            WaterNeeds = 1
                         },
                         new
                         {
                             Id = 29,
-                            PlantCare = "Light: Full sun.Temp: 12-112 degrees F.Water:Once every 2-3 weeks.Issues:Root rot.",
+                            Description = "Times a week",
+                            Issues = "Root rot.",
                             PlantName = "Ghost Plant",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "Full sun.",
+                            Temperature = "12-112 degrees F.",
+                            WaterNeeds = 2
                         },
                         new
                         {
                             Id = 30,
-                            PlantCare = "Light:At least 4-5 hours of morning sunlight and partial shade in the afternoon.Temp:65-75 degrees F.Water:Once every 2-3 weeks.Issues:Spider mites.",
+                            Description = "Times a week",
+                            Issues = "Spider mites.",
                             PlantName = "Living Stone",
-                            Quantity = 0
+                            Quantity = 0,
+                            Sunlight = "At least 4-5 hours of morning sunlight and partial shade in the afternoon.",
+                            Temperature = "65-75 degrees F.",
+                            WaterNeeds = 2
                         });
                 });
 
@@ -502,17 +638,52 @@ namespace Plant_Life.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<int>("DefaultPlantId")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlantIndexViewModelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
+                    b.HasIndex("DefaultPlantId");
+
+                    b.HasIndex("PlantIndexViewModelId");
+
                     b.ToTable("DefaultPlantUser");
+                });
+
+            modelBuilder.Entity("Plant_Life.Models.Event", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EventName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PlantId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("EventId");
+
+                    b.HasIndex("PlantId");
+
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("Plant_Life.Models.Plant", b =>
@@ -525,21 +696,47 @@ namespace Plant_Life.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PlantCare")
+                    b.Property<string>("Issues")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlantIndexViewModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PlantName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<string>("Sunlight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Temperature")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Water")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WaterNeeds")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("PlantIndexViewModelId");
 
                     b.ToTable("Plant");
                 });
@@ -567,6 +764,18 @@ namespace Plant_Life.Migrations
                     b.ToTable("PlantCalendar");
                 });
 
+            modelBuilder.Entity("Plant_Life.Models.ViewModel.PlantIndexViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlantIndexViewModel");
+                });
+
             modelBuilder.Entity("Plant_Life.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -584,15 +793,15 @@ namespace Plant_Life.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fb4ae189-eae3-495c-b5bb-8da37c817613",
+                            Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "db47527e-2604-4caa-94b0-be0f353d47a1",
+                            ConcurrencyStamp = "075f9e27-4f46-4b73-8d27-6a4e9dee1abb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHE73KzlVO7n9Vwzr1eY3OMFJ9JNw/7s9mKI0BYAUGMzgVRJzcjHEljLqfT4juKLzQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI2zI9x7SLuIILpGlEVL0AEERT76yGNHEm+qfTuV/gzRUVCCU+jm1LvMgteaDtaNLw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -665,6 +874,23 @@ namespace Plant_Life.Migrations
                     b.HasOne("Plant_Life.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Plant_Life.Models.DefaultPlant", "DefaultPlant")
+                        .WithMany()
+                        .HasForeignKey("DefaultPlantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Plant_Life.Models.ViewModel.PlantIndexViewModel", null)
+                        .WithMany("DefaultPlantUsers")
+                        .HasForeignKey("PlantIndexViewModelId");
+                });
+
+            modelBuilder.Entity("Plant_Life.Models.Event", b =>
+                {
+                    b.HasOne("Plant_Life.Models.Plant", "Plant")
+                        .WithMany()
+                        .HasForeignKey("PlantId");
                 });
 
             modelBuilder.Entity("Plant_Life.Models.Plant", b =>
@@ -672,6 +898,10 @@ namespace Plant_Life.Migrations
                     b.HasOne("Plant_Life.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Plant_Life.Models.ViewModel.PlantIndexViewModel", null)
+                        .WithMany("Plants")
+                        .HasForeignKey("PlantIndexViewModelId");
                 });
 
             modelBuilder.Entity("Plant_Life.Models.PlantCalendar", b =>

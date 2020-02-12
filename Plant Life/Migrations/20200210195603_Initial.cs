@@ -55,14 +55,31 @@ namespace Plant_Life.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PlantName = table.Column<string>(nullable: true),
-                    PlantCare = table.Column<string>(nullable: true),
+                    PlantName = table.Column<string>(nullable: false),
+                    Sunlight = table.Column<string>(nullable: true),
+                    Temperature = table.Column<string>(nullable: true),
+                    Water = table.Column<string>(nullable: true),
+                    WaterNeeds = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Issues = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DefaultPlant", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlantIndexViewModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlantIndexViewModel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,43 +212,23 @@ namespace Plant_Life.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DefaultPlantUser",
+                name: "Event",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    EventId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicationUserId = table.Column<string>(nullable: true),
-                    DefaultPlantId = table.Column<int>(nullable: false),
-                    Image = table.Column<string>(nullable: true)
+                    EventName = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
+                    PlantId = table.Column<int>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DefaultPlantUser", x => x.Id);
+                    table.PrimaryKey("PK_Event", x => x.EventId);
                     table.ForeignKey(
-                        name: "FK_DefaultPlantUser_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Plant",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    PlantName = table.Column<string>(nullable: true),
-                    PlantCare = table.Column<string>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    Image = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Plant", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Plant_AspNetUsers_ApplicationUserId",
+                        name: "FK_Event_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -259,46 +256,117 @@ namespace Plant_Life.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DefaultPlantUser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    DefaultPlantId = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
+                    PlantIndexViewModelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DefaultPlantUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DefaultPlantUser_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DefaultPlantUser_DefaultPlant_DefaultPlantId",
+                        column: x => x.DefaultPlantId,
+                        principalTable: "DefaultPlant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DefaultPlantUser_PlantIndexViewModel_PlantIndexViewModelId",
+                        column: x => x.PlantIndexViewModelId,
+                        principalTable: "PlantIndexViewModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Plant",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    PlantName = table.Column<string>(nullable: false),
+                    Sunlight = table.Column<string>(nullable: true),
+                    Temperature = table.Column<string>(nullable: true),
+                    Water = table.Column<string>(nullable: true),
+                    WaterNeeds = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Issues = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
+                    Image = table.Column<string>(nullable: true),
+                    PlantIndexViewModelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Plant", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Plant_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Plant_PlantIndexViewModel_PlantIndexViewModelId",
+                        column: x => x.PlantIndexViewModelId,
+                        principalTable: "PlantIndexViewModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
-                values: new object[] { "fb4ae189-eae3-495c-b5bb-8da37c817613", 0, "db47527e-2604-4caa-94b0-be0f353d47a1", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEHE73KzlVO7n9Vwzr1eY3OMFJ9JNw/7s9mKI0BYAUGMzgVRJzcjHEljLqfT4juKLzQ==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com", "admin", "admin" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "0290a6ab-6561-4608-bcbf-6090abe96456", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAELQTb27q/8ywFfXJkT8ng1fhf5MlfjXGd3Q8M5KyS0yVWFRboWj7EaIiEX2kJAnlcA==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "DefaultPlant",
-                columns: new[] { "Id", "Image", "PlantCare", "PlantName", "Quantity" },
+                columns: new[] { "Id", "Description", "Image", "Issues", "PlantName", "Quantity", "Sunlight", "Temperature", "Water", "WaterNeeds" },
                 values: new object[,]
                 {
-                    { 28, null, "Light:At least 3-4 hours of direct sunlight.Temp:70-90 degrees F.Water:Once a weeks.Issues:Overwatering and sudden leaf wilting.", "Tigers Jaw Plant", 0 },
-                    { 27, null, "Light:At least 6 hours of direct full/partial sunlight.Temp:20-50 degrees F.Water:Once every week; less in the winter.Issues:Overwatering.", "Mexican Snowball", 0 },
-                    { 26, null, "Light: Full to partial sun.Temp:-20-40 degrees F.Water:Once every 7-10 days.Issues:Mealy bugs and scale.", "Tufted Ice Plant", 0 },
-                    { 25, null, "Light:Bright shaded areas.Temp:20-30 degrees F.Water:Once a week.Issues:Fungal disease caused by overwatering.", "Bear's Paw", 0 },
-                    { 24, null, "full sun or bright, indirect light.Temp:45-55 degrees F.Water:Once every 3-4 weeks.Issues:overwatering, spidermites, scale, or mealybugs.", "Ponytail Palm", 0 },
-                    { 23, null, "Light:Full sun to filtered/partial shade.Temp:40-80 degrees F.Water:Once every 2-3 weeks.Issues:Overwatering.", "Doran Black Aloe", 0 },
-                    { 22, null, "Light:At least 4-5 hours of morning sunlight and partial shade in the afternoon.Temp:45-100 degrees F.Water:Once every 3-4 weeks.Issues:Stem base rot and brown spots.", "Bunny Ears Cactus", 0 },
-                    { 21, null, "Light:At least 6 hours of direct full sunlight.Temp:25-50 degrees F.Water:Once a week.Issues:Root rot caused by overwatering and toxic to humans and animals.", "Calico Hearts Plant", 0 },
-                    { 20, null, "Light:At least 3-4 hours of direct full sunlight.Temp:35-80 degrees F.Water:Once a week.Issues:Root rot caused by overwatering.", "Crown of Thorns", 0 },
-                    { 19, null, "Light:Bright sunlight for a minimum of four hours a day.Temp:60-80 degrees F.Water:Once a month.Issues:Root rot and leaf rot from overwatering.", "Torch Cactus", 0 },
-                    { 18, null, "Light: Full sun for 6 hours at least.Temp:40-100 degrees F.Water:1-2 times a month.Issues:Root rot from overwatering.", "Sunburst Plant", 0 },
-                    { 17, null, "Light: Full sun to partial shade.Temp:65-75 degrees F.Water:Once every 10 days.Issues:Root rot caused by overwatering.", "Zwartkop Plant", 0 },
-                    { 16, null, "Light: Full sun to partial shade.Temp:18-22 degrees F.Water:1-2 times a month.Issues:Snails, slugs, and overwatering.", "Pig's Ear", 0 },
-                    { 29, null, "Light: Full sun.Temp: 12-112 degrees F.Water:Once every 2-3 weeks.Issues:Root rot.", "Ghost Plant", 0 },
-                    { 15, null, "Light: Full sun and partial sun in afternoons.Temp:18-50 degrees F.Water:Once a month.Issues:Ants, Mealy bugs, snails, slugs, and overwatering.", "Dudleya Plant", 0 },
-                    { 13, null, "Light:Direct sunlight in the morning/afternoonand partial shade during the hottest part of the day.Temp:45-85 degrees F.Water:Once a week.Issues:Sucking pests, fungal and bacteria disease.", "Ball Cactus", 0 },
-                    { 12, null, "Light:Full sun or lightly filtered shade. Temp:10-70 degrees F.Water:Once a week.Issues:none.", "Whale's Tongue Agave", 0 },
-                    { 11, null, "Light:Full sunlight. Temp:-35-40 degrees F.Water:Once a week.Issues:Powdery mildrew, botrytis, and root rot.", "Stonecrop", 0 },
-                    { 10, null, "Light:Full sunlight. Temp:65-75 degrees F.Water:Once a week.Issues:Overwatering causing root rot.", "Hens-and-Chicks", 0 },
-                    { 9, null, "Light:low light, full light and indirect sunlight. Temp:70-90 degrees F.Water:Once every 2-6 weeks.Issues:Fungal problems, such as southern blight and red leaf spot.", "Snake Plant", 0 },
-                    { 8, null, "Light:Direct sunlight. Temp:50-75 degrees F.Water:Once every 2-3 weeks.Issues:Overwatering, Mealybugs, and scale bugs.", "Pincushion Cactus", 0 },
-                    { 7, null, "Light:Partial shade to full sun. Temp:60-80 degrees F.Water:Once every 1-2 weeks.Issues:Mealybugs, scale, red spidermites, and overwatering.", "Roseum", 0 },
-                    { 6, null, "Light:Bright light to full sun. Temp:60-75 degrees F.Water:Once every 10 days.Issues:Overwatering and Mealybugs, scale, red spidermites.", "Panda Plant", 0 },
-                    { 5, null, "Light:Full sun for at least 4 hours each day. Temp:65-75 degrees F.Water:Once every 4 weeks.Issues:Overwatering and Mealy bugs.", "Burro's Tail", 0 },
-                    { 4, null, "Light:Bright light to full sun. Temp:65-70 degrees F.Water:Once every 2-3 weeks.Issues:Basal stem rot and Botryis .", "Flaming Katy", 0 },
-                    { 3, null, "Light:Full sun for at least 4 hours each day. Temp:65-70 degrees F.Water:Once every 2-3 weeks.Issues:Black spots caused from insects, viruses, and fungal disease.", "Jade Plant", 0 },
-                    { 2, null, "Light:Partial sun or shade. Temp:65-80 degrees F.Water:Once every 3-4 weeks. Issues:Usually pest free.", "Zebra Plant", 0 },
-                    { 1, null, "Light: Bright, indirect sunlight or artifical sunlight. Temp:55-80 degrees F.Water:Once every 3-4 weeks.Issues:Diseases that occur with aloe vera is root rot, soft rot, fungal stem rot and leaf rot ", "Aloe Vera", 0 },
-                    { 14, null, "Light: Full to partial sun.Temp:35-50 degrees F.Water:Once a week.Issues:Mealy bugs.", "Plush Plant", 0 },
-                    { 30, null, "Light:At least 4-5 hours of morning sunlight and partial shade in the afternoon.Temp:65-75 degrees F.Water:Once every 2-3 weeks.Issues:Spider mites.", "Living Stone", 0 }
+                    { 28, null, null, "Overwatering and sudden leaf wilting.", "Tigers Jaw Plant", 0, "At least 3-4 hours of direct sunlight.", "70-90 degrees F.", "Once a weeks.", 0 },
+                    { 27, null, null, "Overwatering.", "Mexican Snowball", 0, "At least 6 hours of direct full/partial sunlight.", "20-50 degrees F.", "Once every week; less in the winter.", 0 },
+                    { 26, null, null, "Mealy bugs and scale.", "Tufted Ice Plant", 0, "Full to partial sun.", "-20-40 degrees F.", "Once every 7-10 days.", 0 },
+                    { 25, null, null, "Fungal disease caused by overwatering.", "Bear's Paw", 0, "Bright shaded areas.", "20-30 degrees F.", "Once a week.", 0 },
+                    { 24, null, null, "Overwatering, spidermites, scale, or mealybugs.", "Ponytail Palm", 0, "full sun or bright, indirect light.", "45-55 degrees F.", "Once every 3-4 weeks.", 0 },
+                    { 23, null, null, "Overwatering.", "Doran Black Aloe", 0, "Full sun to filtered/partial shade.", "40-80 degrees F.", "Once every 2-3 weeks.", 0 },
+                    { 22, null, null, "Stem base rot and brown spots.", "Bunny Ears Cactus", 0, "At least 4-5 hours of morning sunlight and partial shade in the afternoon.", "45-100 degrees F.", "Once every 3-4 weeks.", 0 },
+                    { 21, null, null, "Root rot caused by overwatering and toxic to humans and animals.", "Calico Hearts Plant", 0, "At least 6 hours of direct full sunlight.", "25-50 degrees F.", "Once a week.", 0 },
+                    { 20, null, null, "Root rot caused by overwatering.", "Crown of Thorns", 0, "At least 3-4 hours of direct full sunlight.", "35-80 degrees F.", "Once a week.", 0 },
+                    { 19, null, null, "Root rot and leaf rot from overwatering.", "Torch Cactus", 0, "Bright sunlight for a minimum of four hours a day.", "60-80 degrees F.", "Once a month.", 0 },
+                    { 18, null, null, "Root rot from overwatering.", "Sunburst Plant", 0, "Full sun for 6 hours at least.", "40-100 degrees F.", "1-2 times a month.", 0 },
+                    { 17, null, null, "Root rot caused by overwatering.", "Zwartkop Plant", 0, "Full sun to partial shade.", "65-75 degrees F.", "Once every 10 days.", 0 },
+                    { 16, null, null, "Snails, slugs, and overwatering.", "Pig's Ear", 0, "Full sun to partial shade.", "18-22 degrees F.", "1-2 times a month.", 0 },
+                    { 29, null, null, "Root rot.", "Ghost Plant", 0, "Full sun.", "12-112 degrees F.", "Once every 2-3 weeks.", 0 },
+                    { 15, null, null, "Ants, Mealy bugs, snails, slugs, and overwatering.", "Dudleya Plant", 0, "Full sun and partial sun in afternoons.", "18-50 degrees F.", "Once a month.", 0 },
+                    { 13, null, null, "Sucking pests, fungal and bacteria disease.", "Ball Cactus", 0, "Direct sunlight in the morning/afternoonand partial shade during the hottest part of the day.", "45-85 degrees F.", "Once a week.", 0 },
+                    { 12, null, null, "none.", "Whale's Tongue Agave", 0, "Full sun or lightly filtered shade.", "10-70 degrees F.", "Once a week.", 0 },
+                    { 11, null, null, "Powdery mildrew, botrytis, and root rot.", "Stonecrop", 0, "Full sunlight.", "-35-40 degrees F.", "Once a week.", 0 },
+                    { 10, null, null, "Overwatering causing root rot.", "Hens-and-Chicks", 0, "Full sunlight.", "65-75 degrees F.", "Once a week.", 0 },
+                    { 9, null, null, "Fungal problems, such as southern blight and red leaf spot.", "Snake Plant", 0, "low light, full light and indirect sunlight.", "70-90 degrees F.", "Once every 2-6 weeks.", 0 },
+                    { 8, null, null, "Overwatering, Mealybugs, and scale bugs.", "Pincushion Cactus", 0, "Direct sunlight.", "50-75 degrees F.", "Once every 2-3 weeks.", 0 },
+                    { 7, null, null, "Mealybugs, scale, red spidermites, and overwatering.", "Roseum", 0, "Partial shade to full sun.", "60-80 degrees F.", "Once every 1-2 weeks.", 0 },
+                    { 6, null, null, "Overwatering and Mealybugs, scale, red spidermites.", "Panda Plant", 0, "Bright light to full sun.", "60-75 degrees F.", "Once every 10 days.", 0 },
+                    { 5, null, null, "Overwatering and Mealy bugs.", "Burro's Tail", 0, "Full sun for at least 4 hours each day.", "65-75 degrees F.", "Once every 4 weeks.", 0 },
+                    { 4, null, null, "Basal stem rot and Botryis.", "Flaming Katy", 0, "Bright light to full sun.", "65-70 degrees F.", "Once every 2-3 weeks.", 0 },
+                    { 3, null, null, "Black spots caused from insects, viruses, and fungal disease.", "Jade Plant", 0, "Full sun for at least 4 hours each day.", "65-70 degrees F.", "Once every 2-3 weeks.", 0 },
+                    { 2, null, null, "Usually pest free.", "Zebra Plant", 0, "Partial sun or shade.", "65-80 degrees F.", "Once every 3-4 weeks.", 0 },
+                    { 1, null, null, "Diseases that occur with aloe vera is root rot, soft rot, fungal stem rot and leaf rot ", "Aloe Vera", 0, "Bright, indirect sunlight or artifical sunlight.", "55-80 degrees F.", "Once every 3-4 weeks.", 0 },
+                    { 14, null, null, "Mealy bugs.", "Plush Plant", 0, "Full to partial sun.", "35-50 degrees F.", "Once a week.", 0 },
+                    { 30, null, null, "Spider mites.", "Living Stone", 0, "At least 4-5 hours of morning sunlight and partial shade in the afternoon.", "65-75 degrees F.", "Once every 2-3 weeks.", 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -351,9 +419,29 @@ namespace Plant_Life.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DefaultPlantUser_DefaultPlantId",
+                table: "DefaultPlantUser",
+                column: "DefaultPlantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DefaultPlantUser_PlantIndexViewModelId",
+                table: "DefaultPlantUser",
+                column: "PlantIndexViewModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Event_ApplicationUserId",
+                table: "Event",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Plant_ApplicationUserId",
                 table: "Plant",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Plant_PlantIndexViewModelId",
+                table: "Plant",
+                column: "PlantIndexViewModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlantCalendar_ApplicationUserId",
@@ -382,10 +470,10 @@ namespace Plant_Life.Migrations
                 name: "Calendar");
 
             migrationBuilder.DropTable(
-                name: "DefaultPlant");
+                name: "DefaultPlantUser");
 
             migrationBuilder.DropTable(
-                name: "DefaultPlantUser");
+                name: "Event");
 
             migrationBuilder.DropTable(
                 name: "Plant");
@@ -395,6 +483,12 @@ namespace Plant_Life.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "DefaultPlant");
+
+            migrationBuilder.DropTable(
+                name: "PlantIndexViewModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -24,8 +24,11 @@
                 Temperature
             </th>
             <th>
-                Water
+                Water Needs
             </th>
+            @*<th>
+                Description
+            </th>*@
             <th>
                 Issues
             </th>
@@ -41,35 +44,38 @@
     <tbody>
         @foreach (var item in Model.Plants)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlantName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sunlight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Temperature)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Water)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Issues)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    <img src="@("/Images/" + item.Image)" style="max-width: 150px" />
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sunlight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Temperature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaterNeeds)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Issues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+            <a asp-controller="Plants" asp-action="Edit" asp-route-id="@item.Id">Add An Image</a>
+                <img src="@("/Images/" + item.Image)" style="max-width: 150px" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                  
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
         @foreach (var item in Model.DefaultPlantUsers)
         {
@@ -84,8 +90,11 @@
             @Html.DisplayFor(modelItem => item.DefaultPlant.Temperature)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DefaultPlant.Water)
+            @Html.DisplayFor(modelItem => item.DefaultPlant.WaterNeeds)
         </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.DefaultPlant.Description)
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.DefaultPlant.Issues)
         </td>
@@ -93,8 +102,8 @@
             @Html.DisplayFor(modelItem => item.DefaultPlant.Quantity)
         </td>
         <td>
-            <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>
-            @*<img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
+            @*<a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>*@
+           @* <img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
         </td>
         <td>
             <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Edit</a> |

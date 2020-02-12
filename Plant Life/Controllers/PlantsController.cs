@@ -30,6 +30,7 @@ namespace Plant_Life.Controllers
         // GET: Plants
         public async Task<IActionResult> Index()
         {
+            
             var plantIndexViewModel = new PlantIndexViewModel();
             var user = await GetCurrentUserAsync();
             plantIndexViewModel.Plants = _context.Plant.Where(a => a.ApplicationUserId == user.Id).ToList();
@@ -68,11 +69,11 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PlantName,Sunlight,Temperature,Water,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
+        public async Task<IActionResult> Create([Bind("Id,PlantName,Sunlight,Temperature,WaterNeeds,Description,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
         {
             var user = await GetCurrentUserAsync();
             plant.ApplicationUserId = user.Id;
-
+            
 
             if (plant.File != null && plant.File.Length > 0)
             {
@@ -88,6 +89,7 @@ namespace Plant_Life.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(plant);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -120,7 +122,7 @@ namespace Plant_Life.Controllers
             }
 
             var plant = await _context.DefaultPlant
-                
+
                 .FirstOrDefaultAsync(dp => dp.Id == id);
             if (plant == null)
             {
@@ -135,13 +137,14 @@ namespace Plant_Life.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Id,PlantName,Sunlight,Temperature,Water,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Id,PlantName,Sunlight,Temperature,WaterNeeds,Description,Issues,Quantity,Image,File")] Plant plant, IFormFile file)
         {
 
             if (id != plant.Id)
             {
                 return NotFound();
             }
+
 
             if (ModelState.IsValid)
             {
@@ -158,7 +161,9 @@ namespace Plant_Life.Controllers
                         plant.Image = fileName;
                     }
                     _context.Update(plant);
+                  
                     await _context.SaveChangesAsync();
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -184,7 +189,7 @@ namespace Plant_Life.Controllers
         [ValidateAntiForgeryToken]
         //Step 1. delete correct defaultplantuser record
         //Step 2. save a new record in the plant table
-        public async Task<IActionResult> EditUserDefault(int id, [Bind("Id,PlantName,Sunlight,Temperature,Water,Issues,Quantity,Image,File")] DefaultPlant defaultPlant, IFormFile file)
+        public async Task<IActionResult> EditUserDefault(int id, [Bind("Id,PlantName,Sunlight,Temperature,WaterNeeds,Description,Issues,Quantity,Image,File")] DefaultPlant defaultPlant, IFormFile file)
         {
 
             if (id != defaultPlant.Id)
@@ -196,18 +201,6 @@ namespace Plant_Life.Controllers
             {
                 try
                 {
-                    //if (defaultPlant.File != null && defaultPlant.File.Length > 0)
-                    //{
-                    //    var fileName = Path.GetFileName(defaultPlant.File.FileName); //getting path of actual file name
-                    //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images", fileName); //creating path combining file name w/ www.root\\images directory
-                    //    using (var fileSteam = new FileStream(filePath, FileMode.Create)) //using filestream to get the actual path 
-                    //    {
-                    //        await defaultPlant.File.CopyToAsync(fileSteam);
-                    //    }
-                    //    defaultPlant.Image = fileName;
-                    //}
-                    
-
                     var currentUser = await GetCurrentUserAsync();
                     var deleteDefaultPlantUser = await _context.DefaultPlantUser
                          .Include(dp => dp.DefaultPlant)
@@ -222,9 +215,10 @@ namespace Plant_Life.Controllers
                     {
                         ApplicationUserId = currentUser.Id,
                         PlantName = defaultPlant.PlantName,
-                        Sunlight= defaultPlant.Sunlight,
+                        Sunlight = defaultPlant.Sunlight,
                         Temperature = defaultPlant.Temperature,
-                        Water = defaultPlant.Water,
+                        WaterNeeds = defaultPlant.WaterNeeds,
+                        //Description = defaultPlant.Description,
                         Issues = defaultPlant.Issues,
                         Quantity = defaultPlant.Quantity,
                         Image = defaultPlant.Image
@@ -232,7 +226,6 @@ namespace Plant_Life.Controllers
 
                     _context.Add(plant);
                     _context.Remove(deleteDefaultPlantUser);
-                   // await _context.SaveChangesAsync();
 
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -262,7 +255,6 @@ namespace Plant_Life.Controllers
             }
 
             var plant = await _context.Plant
-                //.Include(p => p.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (plant == null)
             {
@@ -316,6 +308,8 @@ namespace Plant_Life.Controllers
         {
             return _context.Plant.Any(e => e.Id == id);
         }
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
+
