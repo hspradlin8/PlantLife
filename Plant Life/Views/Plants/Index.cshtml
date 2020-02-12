@@ -9,7 +9,7 @@
 <h1>My Plants</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -71,9 +71,9 @@
                 <img src="@("/Images/" + item.Image)" style="max-width: 150px" />
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a> 
 
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-secondary">Delete</a>
             </td>
         </tr>
         }
@@ -102,11 +102,11 @@
             @Html.DisplayFor(modelItem => item.DefaultPlant.Quantity)
         </td>
         <td>
-            @*<a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>*@
+            <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Add An Image</a>
            @* <img src="@("/Images/" + item.Image)" style="max-width: 150px" />*@
         </td>
         <td>
-            <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Edit</a> |
+            <a asp-controller="Plants" asp-action="EditUserDefault" asp-route-id="@item.DefaultPlant.Id">Edit</a> 
             <a asp-controller="Plants" asp-action="DeleteDefaultPlant" asp-route-id="@item.Id">Delete</a>
 
         </td>

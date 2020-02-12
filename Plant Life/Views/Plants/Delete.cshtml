@@ -57,8 +57,8 @@
     
     <form asp-action="DeleteConfirmed" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-secondary" /> |
+        <a asp-action="Index" class="btn-btn-success">Back to List</a>
         <div class="form-group">
            <img src="@("/Images/" + Model.Image)" alt="Plant Pic" style="max-width:150px" />
         </div>
