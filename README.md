@@ -1,7 +1,7 @@
 # PlantLife
 ### A Restaurant and Meal Dietary Guide | NSS Back-End Capstone
 
-I built this application to help new gardeners and inexperienced gardeners to keep track of their plants and their plants health.Users will be able to add their own plants or pick from a list of plants in the succulent to add to their list. Users can upload images of their plants and track their plants watering needs by using the calendar.   
+I built this application to help new gardeners and inexperienced gardeners to keep track of their plants and their plants health. Users will be able to add their own plants or pick from a list of plants in the succulent to add to their list. Users can upload images of their plants and track their plants watering needs by using the calendar.   
 
 App was built using C#/.NET Core with Entity Framework using Identity and styled using Bootstrap 4. Relational database was managed using SQL Server.
 
