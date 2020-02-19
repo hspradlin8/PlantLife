@@ -192,31 +192,24 @@ namespace Plant_Life.Controllers
                 {
                     List<DateTime> WaterDates = new List<DateTime>();
                     int TimesperMonth = p.WaterNeeds;
-                    // int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
                     int daysInYear = DateTime.IsLeapYear(DateTime.Now.Year) ? 366 : 365;
                     int dayOfMonth = DateTime.Now.Day;
                     DateTime startDate = p.DateCreated;
-                    //DateTime lastDayOfCurrentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
-                    //    DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
                     DateTime lastDayOfCurrentYear = new DateTime(DateTime.Now.Year, 12, 31);
-                       ;
+                       
 
-                    // int DaysLeftInMonth = daysInMonth - dayOfMonth;
+                   
                     int DaysLeftInYear = daysInYear - dayOfMonth;
                     int WaterDayCount = DaysLeftInYear / TimesperMonth;
 
                     /*how the calendar loops through the date created to the last day of the month 
                     based on water needs(which is times per month)*/
 
-                    //foreach (DateTime day in EachDay(startDate, lastDayOfCurrentMonth, p.WaterNeeds))
-                    //{
-                    //    WaterDates.Add(day);
-                    //}
-
                     foreach (DateTime day in EachDay(startDate, lastDayOfCurrentYear, p.WaterNeeds))
                     {
                         WaterDates.Add(day);
                     }
+
                     //creating watering events
                     //The forEach method executes a newWaterEvent function once for each WaterDate
 
